@@ -199,7 +199,7 @@ pub fn map_reduce2(hm: HashMap<String, (i32, i32)>) -> HashMap<String, (i32, i32
 
 
 
-///λ check is an integration tester (int-tester) to check functionality in the development vector (dev-vector)
+///λ check int-tests mylib's q2_hash module 
 pub fn check() -> Result<(), String> {
 
     let my_location = "q2_hash::check";

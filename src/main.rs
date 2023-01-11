@@ -45,13 +45,18 @@ pub fn check() -> Result<(), String> {
 
 
 // •════════··══════════════════·═══════════════════··══════════════════·═══════════════════··═══════════•
-///λ main is the overall framework's executor for sys3rs; it selects a module from below and runs it's exec fn
+///λ main is the framework's executive for sys3rs; it selects a module from below and runs it
 fn main() -> Result<(), String> {
 
     let my_location = "main"; 
-    match sysops::run() {                                               // running system
-        Err(ee) => Err(format!("{ee}⟸ {my_location}")),
-        _ => Ok(()),
+    match mylib::check() {
+        Err(ee) => Err(format!("{ee}⟸ {my_location}")),                 // checking mylib
+        _ => {
+            match sysops::run() {                                       // running system
+                Err(ee) => Err(format!("{ee}⟸ {my_location}")),
+                _ => Ok(()),
+            }
+        }
     }
 }
 
@@ -75,7 +80,7 @@ mod rsx3;
         _       => match rsx0::check() {
 
 •═══════════··══════════════════·═══════════════════··══════════════════·═══════════════════··═══════════•
-///λ main is the overall framework's executor for sys3rs; it selects a module from below and runs it's exec fn
+///λ main is the framework's executive for sys3rs; it selects a module from below and runs it
 fn main() -> Result<(), String> {
 
     let my_location = "main"; 
@@ -86,10 +91,23 @@ fn main() -> Result<(), String> {
 }
 
 •═══════════··══════════════════·═══════════════════··══════════════════·═══════════════════··═══════════•
+///λ main is the framework's executive for sys3rs; it selects a module from below and runs it
+fn main() -> Result<(), String> {
+
+    let my_location = "main"; 
+    match sysops::run() {                                               // running system
+        Err(ee) => Err(format!("{ee}⟸ {my_location}")),
+        _ => Ok(()),
+    }
+}
+
+•═══════════··══════════════════·═══════════════════··══════════════════·═══════════════════··═══════════•
+
+•═══════════··══════════════════·═══════════════════··══════════════════·═══════════════════··═══════════•
 ///λ main is the overall framework's executor for sys3rs; it selects a module from below and runs it's exec fn
 fn main() -> Result<(), String> {
 
-    mylib::c_check().expect("some error in mylib::c_check");
+    mylib::check().expect("some error in mylib::c_check");
     Ok(())
 }
 

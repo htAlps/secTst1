@@ -1,6 +1,6 @@
 // •════════··══════════════════·═══════════════════··══════════════════·═══════════════════··══════════════════·═══════════════════··═══════════•
-// ✨λ s1_metrics  ι✧21․11․22✦10․08․26․ 🌎η ✧22․11․12․✧22․10․22․✧22․08․19․✧22․04․21․✧21․12․15․
-// Folding metrics on csv files 
+// ✨λ s2_operations.rs  ι✧22․05․20✦05․15․31․ 🌎η ✧23․01․10․✧22․11․25․✧22․10․11․✦06․✧22․07․05․✧22․05․22․✧22․05․21․✧22․05․20․
+// Operations on HashSets and HashMaps like: `+` `-` `*` `/` 
 #![allow(dead_code)]
 use std::fs;
 use mylib::q4_fold::*;
@@ -26,7 +26,7 @@ pub fn run() -> Result<(), String> {
     print!("\n🎡𐡋 running: sysops::s1_metrics:run \n");
     
     let my_location = "s1_metrics::run";
-    match fs::read_to_string("x4raw.csv") {
+    match fs::read_to_string("/usr/local/sys/sys3rs/data/x41_input_data.csv") {
         Err(ee) => Err(format!("read_error[{ee}]@{my_location}")),
 
         Ok(in_string) => {
@@ -36,12 +36,12 @@ pub fn run() -> Result<(), String> {
 
             print!("\n🎡𐡋 writing first file 👍υ OK! \n");
             
-            match fs::write("y4metrics_fold1.csv", &table1) {
+            match fs::write("/usr/local/sys/sys3rs/data/y42_iter1_subtable.csv", &table1) {
                 Err(ee) => Err(format!("write_fmap_error[{ee}]@{my_location}")),
                 _ => {
                     print!("\n🎡𐡋 wrote first file 👍υ OK! \n");
                     let table2 = format!("{}\n", fmap1.fold().to_table());
-                    match fs::write("y4metrics_fold2.csv", &table2) {
+                    match fs::write("/usr/local/sys/sys3rs/data/y42_iter2_subtable.csv", &table2) {
                         Err(ee) => Err(format!("write_key_error[{ee}]@{my_location}")),
                         _ => {
                             print!("\n🎡𐡋 wrote second file 👍υ OK! \n");

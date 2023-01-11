@@ -32,7 +32,7 @@ mod check_tests {
     }
 }
 
-///λ q_check is an integration tester (int-tester) to check functionality in the development vector (dev-vector)
+/// check int-tests mylib's q-modules 
 pub fn q_check() -> Result<(), String> {
 
     let my_location = "lib::q_check";
@@ -53,7 +53,7 @@ pub fn q_check() -> Result<(), String> {
 }
 
 
-///λ c_check is an integration tester (int-tester) to check functionality in the development vector (dev-vector)
+/// check int-tests mylib's c-modules 
 pub fn c_check() -> Result<(), String> {
 
     let my_location = "lib::c_check";               // Shortening Check to regex only; full version in The Code Pit 
@@ -64,7 +64,7 @@ pub fn c_check() -> Result<(), String> {
     }
 }
 
-///λ check is an integration tester (int-tester) to check functionality in the development vector (dev-vector)
+/// check int-tests mylib <-> active system as a whole
 pub fn check() -> Result<(), String> {
 
     let my_location = "lib::check";

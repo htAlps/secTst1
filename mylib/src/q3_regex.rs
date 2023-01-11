@@ -129,6 +129,7 @@ fn capture_across_mult_lines(ss: String) {
 
 
 ///λ check is the module suppervisor (an integration tester) to check functionality in the development vector (dev-vector)
+///λ check int-tests mylib's q3_regex module 
 pub fn check() -> Result<(), String> {
 
     let my_location = "q3_regex::check";

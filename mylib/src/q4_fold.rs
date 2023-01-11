@@ -161,8 +161,8 @@ pub fn fmap_reduce(hm: HashMap<String, (i32, i32)>) -> HashMap<String, (i32, i32
 
 
 // •════════··══════════════════·═══════════════════··══════════════════·═══════════════════··═══════════•
-///λ check is an integration tester (int-tester) to check functionality in the development vector (dev-vector)
-/// It does the first hashmap iteration of counting duplicates, i.e.:
+///λ check int-tests mylib's q4_fold module by: 
+/// It does the first hashmap folding iteration (counting duplicates), i.e.:
 ///  1. reads table from x41_in_data.csv and runs the first hashmapping iteration 
 ///  2. writes the resulting hashmap to: y41_iter1_res.csv
 ///  3. removes the last column of the table and writes subtable to: x42_iter1_subtable.csv

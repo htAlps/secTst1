@@ -92,7 +92,8 @@ Anouncements:
 fn main() -> Result<(), String> {
 
     let my_location = "main"; 
-    match mylib::check() {                                          // temporarily checking library 
+    print!("\n🎡𐡋 running: {}\n", my_location);
+    match lib3::check() {                                          // temporarily checking library 
         Err(ee) => Err(format!("{ee}⟸ {my_location}")),
         _ => Ok(()),
     }
@@ -115,7 +116,7 @@ fn main() -> Result<(), String> {
 
 use std::error::Error;
 
-mod mylib;
+mod lib3;
 mod sysops;
         _       => match sysops::check() {
 mod rsx0;
@@ -129,9 +130,9 @@ mod rsx3;
 
 •═══════════··══════════════════·═══════════════════··══════════════════·═══════════════════··═══════════•
 OLDER 
-use mylib::q1_lex::{prt_cmd};
-use mylib::q2_hash::{check_regex_helpers};
-use mylib::q3_regex::{check_regex_helpers};
+use lib3::q1_lex::{prt_cmd};
+use lib3::q2_hash::{check_regex_helpers};
+use lib3::q3_regex::{check_regex_helpers};
 
 mod rsx0;       use rsx0::{check};
 

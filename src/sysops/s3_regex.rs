@@ -3,7 +3,10 @@
 // Operations on HashSets and HashMaps like: `+` `-` `*` `/` 
 #![allow(dead_code)]
 use std::fs;
-use mylib::q4_fold::*;
+use lib3::q4_fold::*;
+use lib3::q3_regex::;
+
+const C_LL: &str = "\n•═══════════··══════════════════·═══════════════════··═══════════•\n";
 
 // •════════··══════════════════·═══════════════════··══════════════════·═══════════════════··═══════════•
 //λ unit tests -- REALLY HARD TO TEST WITHOUT `use super::*;`
@@ -13,19 +16,44 @@ mod test_regex {
 
 }
 
+/// clean_csv removes quoted strings - possibly multilined - from fields 
+/// y3clean.csv <- clean(x3dirty.csv)   
+pub fn clean_csv() -> Result<(), String> {
+
+    let my_location = "s3_metrics::clean_csv";
+    print!("\n🎡𐡋 running: {}\n", my_location);
+    match fs::read_to_string("x3dirty.csv") {
+        Err(ee) => Err(format!("read_error[{ee}]@{my_location}")),
+        Ok(in_string) => {
+            let res = q3_regex::remove_2_multiline_quotes(in_string);
+            match fs::write("y3clean.csv", &table1) {
+                Err(ee) => Err(format!("write_error[{ee}]@{my_location}")),
+                _ => {
+                    print!("\n🎡𐡋 wrote second file 👍υ OK! \n");
+                    Ok(())
+                },
+            
+
+
+
 
 // •════════··══════════════════·═══════════════════··══════════════════·═══════════════════··═══════════•
 // Traits, Constants, Types § Enums
 
-const C_LL: &str = "\n•═══════════··══════════════════·═══════════════════··═══════════•\n";
+
+/// check int-tests the active system as a whole
+pub fn check() -> Result<(), String> {
+    Ok(())
+}
+
 
 // •════════··══════════════════·═══════════════════··══════════════════·═══════════════════··═══════════•
-///λ run() is the system's exec fn for sysops::s1_metrics sub-module; 
+///λ run() is the system's exec fn for sysops::s3_metrics sub-module; 
 pub fn run() -> Result<(), String> {
 
-    print!("\n🎡𐡋 running: sysops::s1_metrics:run \n");
+    print!("\n🎡𐡋 running: sysops::s3_metrics:run \n");
     
-    let my_location = "s1_metrics::run";
+    let my_location = "s3_metrics::run";
     match fs::read_to_string("/usr/local/sys/sys3rs/data/x41_input_data.csv") {
         Err(ee) => Err(format!("read_error[{ee}]@{my_location}")),
 
@@ -56,12 +84,6 @@ pub fn run() -> Result<(), String> {
 
 
 
-/// check int-tests the active system as a whole
-pub fn check() -> Result<(), String> {
-    Ok(())
-}
-
-
 //λ The Code Pit
 /*
 •═══════════··══════════════════·═══════════════════··══════════════════·═══════════════════··═══════════•
@@ -73,7 +95,7 @@ pub fn check() -> Result<(), String> {
 ///  3. removes the last column of the table and writes subtable to: x42_iter1_subtable.csv
 pub fn fmap_iter()  -> Result<(), String> {
 
-    let my_location = "s1_metrics::fmap_iter";
+    let my_location = "s3_metrics::fmap_iter";
     match fs::read_to_string("/usr/local/sys/sys3rs/data/x41_input_data.csv") {
         Err(ee) => Err(format!("read_error[{ee}]@{my_location}")),
 
@@ -104,11 +126,11 @@ pub fn fmap_iter()  -> Result<(), String> {
 format!("{}\n", fmap_to_table(&fmap1));
 •═══════════··══════════════════·═══════════════════··══════════════════·═══════════════════··═══════════•
             print!("fmap:  {:?}\n", fmap);
-            print!("{}\n",mylib::q2_hash::fmap_to_csv(false, "Key", "Value", &fmap));
+            print!("{}\n",lib3::q2_hash::fmap_to_csv(false, "Key", "Value", &fmap));
             Ok(())
 •═══════════··══════════════════·═══════════════════··══════════════════·═══════════════════··═══════════•
-    let my_location = "s1_metrics::check";
-    match mylib::check() {
+    let my_location = "s3_metrics::check";
+    match lib3::check() {
         Err(ee) => Err(format!("{ee}⟸ {my_location}")),
         _       => Ok(()),
     }

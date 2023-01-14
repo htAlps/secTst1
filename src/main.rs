@@ -36,23 +36,22 @@ pub fn check() -> Result<(), String> {
     let my_location = "main::check"; 
     match sysops::check() {                                             // checking sysopss
         Err(ee) => Err(format!("Trace: {ee}⟸ {my_location}")),
-        _ => match mylib::check() {                                     // checking library 
+        _ => match lib3::check() {                                     // checking library 
             Err(ee) => Err(format!("{ee}⟸ {my_location}")),
             _ => Ok(()),
         }
     }
 }
 
-
 // •════════··══════════════════·═══════════════════··══════════════════·═══════════════════··═══════════•
 ///λ main is the framework's executive for sys3rs; it selects a module from below and runs it
 fn main() -> Result<(), String> {
 
     let my_location = "main"; 
-    match mylib::check() {
-        Err(ee) => Err(format!("{ee}⟸ {my_location}")),                 // checking mylib
+    match lib3::check() {
+        Err(ee) => Err(format!("{ee}⟸ {my_location}")),                 // checking lib3
         _ => {
-            match sysops::run() {                                       // running system
+            match sysops::check() {                                     // running system
                 Err(ee) => Err(format!("{ee}⟸ {my_location}")),
                 _ => Ok(()),
             }
@@ -67,7 +66,7 @@ fn main() -> Result<(), String> {
 
 use std::error::Error;
 
-mod mylib;
+mod lib3;
 mod sysops;
         _       => match sysops::check() {
 mod rsx0;
@@ -107,14 +106,14 @@ fn main() -> Result<(), String> {
 ///λ main is the overall framework's executor for sys3rs; it selects a module from below and runs it's exec fn
 fn main() -> Result<(), String> {
 
-    mylib::check().expect("some error in mylib::c_check");
+    lib3::check().expect("some error in lib3::c_check");
     Ok(())
 }
 
 •═══════════··══════════════════·═══════════════════··══════════════════·═══════════════════··═══════════•
-    mylib::check().expect("some error in mylib::check");                // quick check of mylib
-    mylib::q_check().expect("some error in mylib::q_check");
-    mylib::c_check().expect("some error in mylib::c_check");
+    lib3::check().expect("some error in lib3::check");                // quick check of lib3
+    lib3::q_check().expect("some error in lib3::q_check");
+    lib3::c_check().expect("some error in lib3::c_check");
 •═══════════··══════════════════·═══════════════════··══════════════════·═══════════════════··═══════════•
     let my_location = "main"; 
     match sysops::run() {                                               // running system

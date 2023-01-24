@@ -2,9 +2,10 @@
 // ✨λ s2_operations.rs  ι✧22․05․20✦05․15․31․ 🌎η ✧23․01․10․✧22․11․25․✧22․10․11․✦06․✧22․07․05․✧22․05․22․✧22․05․21․✧22․05․20․
 // Operations on HashSets and HashMaps like: `+` `-` `*` `/` 
 #![allow(dead_code)]
-use std::fs;
-use lib3::q4_fold::*;
-use lib3::q3_regex::;
+// use std::fs;
+// use lib3::q4_fold;
+// use lib3::q3_regex;
+use lib3::q3_regex::Clean;
 
 const C_LL: &str = "\n•═══════════··══════════════════·═══════════════════··═══════════•\n";
 
@@ -16,24 +17,6 @@ mod test_regex {
 
 }
 
-/// clean_csv removes quoted strings - possibly multilined - from fields 
-/// y3clean.csv <- clean(x3dirty.csv)   
-pub fn clean_csv() -> Result<(), String> {
-
-    let my_location = "s3_metrics::clean_csv";
-    print!("\n🎡𐡋 running: {}\n", my_location);
-    match fs::read_to_string("x3dirty.csv") {
-        Err(ee) => Err(format!("read_error[{ee}]@{my_location}")),
-        Ok(in_string) => {
-            let res = q3_regex::remove_2_multiline_quotes(in_string);
-            match fs::write("y3clean.csv", &table1) {
-                Err(ee) => Err(format!("write_error[{ee}]@{my_location}")),
-                _ => {
-                    print!("\n🎡𐡋 wrote second file 👍υ OK! \n");
-                    Ok(())
-                },
-            
-
 
 
 
@@ -41,19 +24,44 @@ pub fn clean_csv() -> Result<(), String> {
 // Traits, Constants, Types § Enums
 
 
+// •════════··══════════════════·═══════════════════··══════════════════·═══════════════════··═══════════•
+
+
+///λ clean_csv(): y3clean.csv <- clean(x3raw.csv)
+pub fn clean_csv() -> Result<(), String> {
+    let my_location = "q3_regex::from_file";
+    print!("\n🎡𐡋 running: {}\n", my_location);
+    let csv: lib3::q3_regex::CleanCsvString = lib3::q3_regex::CleanCsvString::new();
+    match csv.from_file("x3raw.csv") {
+        Err(ee) => Err(format!("{ee}⟸ {my_location}")),
+        Ok(in_csv) => {
+            match in_csv.to_file("y3clean.csv") {
+                Err(ee) => Err(format!("{ee}⟸ {my_location}")),
+                _ => Ok(()),
+            }
+        }
+    }
+}
+
+
+
+//λ The Code Pit
+/*
+•═══════════··══════════════════·═══════════════════··══════════════════·═══════════════════··═══════════•
 /// check int-tests the active system as a whole
 pub fn check() -> Result<(), String> {
     Ok(())
 }
 
 
-// •════════··══════════════════·═══════════════════··══════════════════·═══════════════════··═══════════•
+•═══════════··══════════════════·═══════════════════··══════════════════·═══════════════════··═══════════•
 ///λ run() is the system's exec fn for sysops::s3_metrics sub-module; 
 pub fn run() -> Result<(), String> {
 
     print!("\n🎡𐡋 running: sysops::s3_metrics:run \n");
     
     let my_location = "s3_metrics::run";
+    print!("\n🎡𐡋 running: {}\n", my_location);
     match fs::read_to_string("/usr/local/sys/sys3rs/data/x41_input_data.csv") {
         Err(ee) => Err(format!("read_error[{ee}]@{my_location}")),
 
@@ -83,10 +91,6 @@ pub fn run() -> Result<(), String> {
 }
 
 
-
-//λ The Code Pit
-/*
-•═══════════··══════════════════·═══════════════════··══════════════════·═══════════════════··═══════════•
 •═══════════··══════════════════·═══════════════════··══════════════════·═══════════════════··═══════════•
 // •════════··══════════════════·═══════════════════··══════════════════·═══════════════════··═══════════•
 ///λ fmap_iter does the first hashmap iteration of counting duplicates, i.e.:

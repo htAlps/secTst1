@@ -936,7 +936,7 @@ impl Lex {
 
 
 •═══════════··══════════════════·═══════════════════··══════════════════·═══════════════════··═══════════•
-    errorLexium     lexiumNameT = iota      // when error happens lexiumValue becomes the text of the error
+    errorLexium     lexiumNag-metr = iota      // when error happens lexiumValue becomes the text of the error
     dotLexium                               // '.'
     eofLexium                               // value is text of error
 
@@ -947,8 +947,8 @@ impl Lex {
     fieldLexium                             // starting with '.'
     idLexium                                // identifier
 
-    leftMetaLexium                          // '{{'
-    rghtMetaLexium                          // '}}'
+    leftg-metraLexium                          // '{{'
+    rghtg-metraLexium                          // '}}'
 
     numberLexium                            // a number eg: '123.45'
     pipeLexium                              // '|'
@@ -964,8 +964,8 @@ const (
     dotC    = ".";      elseC   = "";
     eofC    = "";       endC    = "";
 
-    fieldC  = "";       leftMetaC   = "{{";
-    iDC     = "";       rightMetaC  = "}}";
+    fieldC  = "";       leftg-metraC   = "{{";
+    iDC     = "";       rightg-metraC  = "}}";
 
     numberC = "";       rawStringC  = "";
     pipeC   = "|";      stringC     = "";
@@ -1038,6 +1038,204 @@ const (
 ·═══════════··════════════════ 🔻 ══════════════════··════════════════ 🔻 ══════════════════··════════════════ 🔻 ══════════════════··═══════════·
 ·═══════════··══════════════════════════════════════··══════════════════════════════════════··══════════════════════════════════════··═══════════·
 ․7․✨λ  (Fwd․ Chrono)
+// •════════··══════════════════·═══════════════════··══════════════════·═══════════════════··══════════════════·═══════════════════··═══════════•
+// ✨λ sysops::mod  ι✧21․12․25✦16․50․24․  🌎η ✧22․12․29․✧22․11․12․✧22․08․22․✧22․08․19․✧22․08․16․✧22․08․07․✧22․08․05․✧22․07․04․✧22․06․22․
+pub mod s2_hash;
+pub mod s3_regex;
+pub mod s4_metrics;
+// use lib3::q0_env;
+// use lib3::q3_regex;
+// use lib3;
+
+
+// •════════··══════════════════·═══════════════════··══════════════════·═══════════════════··═══════════•
+//λ unit tests -- REALLY HARD TO TEST WITHOUT `use super::*;`
+
+// •════════··══════════════════·═══════════════════··══════════════════·═══════════════════··═══════════•
+
+
+/// check int-tests the active system as a whole
+pub fn run() -> Result<(), String> {
+
+    let my_location = "sysops::check"; 
+    print!("\n🎡𐡋 running: {}\n", my_location);
+    match lib3::q0_env::get_cmd_code() {
+        None => Ok(()),
+        Some(cmd_code) => {
+            print!("cmd_code: {cmd_code} \n");
+            match cmd_code.as_str() {
+                "add-hs"  => {                                      // add-hs:  y2hs1.csv <- x2hs1.csv + x2hs2.csv  
+                    print!("\n🎡𐡋 {my_location}::\n");
+                    match s2_hash::add_sets() {
+                        Err(ee) => Err(format!("{ee}⟸ {my_location}")),
+                        _ => Ok(()),
+                    }
+                },                                   
+                "sub-hs"  => {                                      // sub-hs:  y2hs2.csv <- x2hs1.csv - x2hs2.csv  
+                    print!("\n🎡𐡋 {my_location}::\n");
+                    match s2_hash::sub_sets() {
+                        Err(ee) => Err(format!("{ee}⟸ {my_location}")),
+                        _ => Ok(()),
+                    }
+                },                                   
+                "add-hm"  => {                                      // add-hm:  y2hm1.csv <- x2hm1.csv + x2hm2.csv  
+                    print!("\n🎡𐡋 {my_location}::\n");
+                    match s2_hash::add_maps() {
+                        Err(ee) => Err(format!("{ee}⟸ {my_location}")),
+                        _ => Ok(()),
+                    }
+                },                                   
+                "sub-hm"  => {                                      // sub-hm:  y2hm2.csv <- x2hm1.csv - x2hm2.csv  
+                    print!("\n🎡𐡋 {my_location}::\n");
+                    match s2_hash::sub_maps() {
+                        Err(ee) => Err(format!("{ee}⟸ {my_location}")),
+                        _ => Ok(()),
+                    }
+                },                                   
+                "rm-qt"  => {                                       // rm-qt:   y3clean.csv <- clean(x3raw.csv)  
+                    print!("\n🎡𐡋 {my_location}::\n");
+                    match s3_regex::clean_csv() {
+                        Err(ee) => Err(format!("{ee}⟸ {my_location}")),
+                        _ => Ok(()),
+                    }
+                },                                   
+                "g-metr"  => {                                      // g-metr:  y4g-metrrics_fold1/2.csv <- fold(x4raw.csv)
+                    print!("\n🎡𐡋 {my_location}::\n");
+                    match s4_metrics::gen_fold_metrics() {
+                        Err(ee) => Err(format!("{ee}⟸ {my_location}")),
+                        _ => Ok(()),
+                    }
+                },                                    
+                "int-tst"  => {                                     // int-tst: Run INT-Tests 
+                    print!("\n🎡𐡋 {my_location}:: \n");
+                    Ok(())
+                },                                    
+                "help"  => {                                        // help:    Help
+                    print!("\n🎡𐡋 {} \n", lib3::q0_env::_HELP_TABLE );
+                    Ok(())
+                },
+                _ => {
+                    Err(format!("⟸ something went wrong@{my_location}"))
+                }
+            }
+        }
+    }
+}
+
+
+
+
+//λ The Code Pit
+/*
+   gen_fold_metrics
+•═══════════··══════════════════·═══════════════════··══════════════════·═══════════════════··═══════════•
+
+
+•═══════════··══════════════════·═══════════════════··══════════════════·═══════════════════··═══════════•
+///λ run() gets the function-code to be executed and runs the corresponding fn
+pub fn run() -> Result<(), String> {
+
+    let my_location = "sysops::run"; 
+    print!("\n🎡𐡋 running: {}\n", my_location);
+    let cmd_code = get_cmd_code();
+    
+    let my_location = "s1_exec::run";
+    match cmd_code {
+        "2add-hs"  => {                // y2hs.csv <- x2hs1.csv + x2hs2.csv  
+            match s2_hash::add_hashsets() {
+                Err(ee) => Err(format!("{ee}⟸ {my_location}")),
+                _ => Ok(()),
+            }
+        }
+        "2sub-hs"  => {                // y2hs.csv <- x2hs1.csv - x2hs2.csv  
+            match s2_hash::sub_hashsets() {
+                Err(ee) => Err(format!("{ee}⟸ {my_location}")),
+                _ => Ok(()),
+            }
+        }
+        "2add-hm"  => {                // y2hm.csv <- x2hm1.csv + x2hm2.csv  
+            match s2_hash::add_hashmaps() {
+                Err(ee) => Err(format!("{ee}⟸ {my_location}")),
+                _ => Ok(()),
+            }
+        }
+        "2sub-hm"  => {                // y2hm.csv <- x2hm1.csv - x2hm2.csv  
+            match s2_hash::sub_hashmaps() {
+                Err(ee) => Err(format!("{ee}⟸ {my_location}")),
+                _ => Ok(()),
+            }
+        }
+        "3rm-qt"  => {                // y3clean.csv <- clean(x3raw.csv)  
+            match s3_regex::clean_csv() {
+                Err(ee) => Err(format!("{ee}⟸ {my_location}")),
+                _ => Ok(()),
+            }
+        }
+        "4g-metr"  => {                // y4g-metrrics_fold1/2.csv <- fold(x4raw.csv)  ║ 
+            match s4_metrics::gen_folds() {
+                Err(ee) => Err(format!("{ee}⟸ {my_location}")),
+                _ => Ok(()),
+            }
+        }
+        "int-tst"  => {                // Run INT-Tests 
+            print!("\n🎡𐡋 {my_location}::int-tst \n");
+        }
+        "help"  => {                // Help
+        }
+        _ => {
+            Err(ee) => Err(format!("{ee}⟸ {my_location}")),
+        }
+}
+
+•═══════════··══════════════════·═══════════════════··══════════════════·═══════════════════··═══════════•
+/// check int-tests the active system as a whole
+pub fn check() -> Result<(), String> {
+
+    let my_location = "sysops::check";
+    match s1_metrics::check() {                                     // checking g-metrrics calculations 
+        Err(ee) => Err(format!("{ee}⟸ {my_location}")),
+        _ => Ok(()),
+    }
+}
+•═══════════··══════════════════·═══════════════════··══════════════════·═══════════════════··═══════════•
+    match s1_metrics::run() {
+        Err(ee) => Err(format!("{ee}⟸ {my_location}")),
+        _ => Ok(()),
+    }
+•═══════════··══════════════════·═══════════════════··══════════════════·═══════════════════··═══════════•
+// •════════··══════════════════·═══════════════════··══════════════════·═══════════════════··═══════════•
+///λ run() is the system's exec fn for sysopss module; 
+pub fn run() -> Result<(), String> {
+
+    let my_location = "s1_exec::run";
+    let lex1 = Lex::new();
+    print!("lex1: \n{lex1}");
+    
+    match map_iter_2() {
+        Err(ee) => Err(format!("{ee}⟸ {my_location}")),
+        _ => Ok(()),
+    }
+}
+
+
+•═══════════··══════════════════·═══════════════════··══════════════════·═══════════════════··═══════════•
+•═══════════··══════════════════·═══════════════════··══════════════════·═══════════════════··═══════════•
+λ Crates § Modules
+
+mod sysops_exec;
+mod a84_re_multiline;               use a84_re_multiline::{check};
+mod a83_regex_basics;               use a83_regex_basics::{check};
+mod a82_string_g-metrhods;             use a82_string_g-metrhods::{check};
+
+
+•═══════════··══════════════════·═══════════════════··══════════════════·═══════════════════··═══════════•
+mod sysops_exec;                    use sysops_exec::{check};
+•═══════════··══════════════════·═══════════════════··══════════════════·═══════════════════··═══════════•
+•═══════════··══════════════════·═══════════════════··══════════════════·═══════════════════··═══════════•
+•═══════════··══════════════════·═══════════════════··══════════════════·═══════════════════··═══════════•
+*/
+// End Of The Code Pit
+
 
 
 
@@ -1070,6 +1268,182 @@ const (
 ·═══════════··════════════════ 🔻 ══════════════════··════════════════ 🔻 ══════════════════··════════════════ 🔻 ══════════════════··═══════════·
 ·═══════════··══════════════════════════════════════··══════════════════════════════════════··══════════════════════════════════════··═══════════·
 ․7․✨λ  (Fwd․ Chrono)
+/// fmap_to_csv converts a hash map to a csv with headings in forward (k,v) or reverse (v,k) order
+pub fn fmap_to_csv(fwd: bool, header: &str, fmap: &HashMap<String, (i32, i32)>) -> String {
+
+    let mut res: String = String::new();
+
+    let hd: String = header.to_string();
+    let cm: String = ",".to_string();
+    let nl: String = "\n".to_string();
+    if fwd {
+        res = res + &hd + &nl;
+        for (kk, vv) in fmap {
+            res = res + &kk + &cm + &vv.0.to_string() + &cm + &vv.1.to_string() + &nl;
+        }
+    } else {
+        res = res + &hd + &nl;
+        for (kk, vv) in fmap {
+            res = res + &vv.0.to_string() + &cm + &vv.1.to_string() + &cm + &kk + &nl;
+        }
+    }
+    res
+}
+
+
+/// fmap_to_file converts a hash fmap to a csv with headings in forward (k,v) or reverse (v,k) order
+pub fn fmap_to_file(fmap: &HashMap<String, (i32, i32)>) -> String {
+
+    let mut res: String = String::new();
+
+    let cm: String = ",".to_string();
+    let nl: String = "\n".to_string();
+    for (kk, vv) in fmap {
+        res = res + &kk + &cm + &vv.0.to_string() + &cm + &vv.1.to_string() + &nl;
+    }
+    res
+}
+
+
+///λ fmap_count inputs a csv, multiline string, counts the unique lines and returns a hashmap (key: unique_line, value: count_of_duplicates)
+pub fn fmap_count(ss: String) -> HashMap<String, (i32, i32)> {
+
+    let mut res: HashMap<String, (i32, i32)> = HashMap::new();
+    for line in ss.lines() {
+        match res.get(line) {
+            None => res.insert(line.to_string(), (0, 1)),
+            Some(count) => res.insert(line.to_string(), (count.0, count.1+1)),
+        };
+    }
+    res
+}
+
+
+///λ fmap_reduce inputs a csv, multiline string, counts the unique lines and returns a hashmap (key: unique_line, value: count_of_duplicates)
+pub fn fmap_reduce(hm: HashMap<String, (i32, i32)>) -> HashMap<String, (i32, i32)> {
+
+    let mut res: HashMap<String, (i32, i32)> = HashMap::new();
+    for (kk, _) in hm {
+        match res.get(&kk) {
+            None => res.insert(kk, (0, 1)),
+            Some(count) => res.insert(kk, (count.0, count.1+1)),
+        };
+    }
+    res
+}
+
+        let res = RE_1_REMOVE_INLINE_QUOTES.replace_all(&ss, "≺1:$yes1≻,--removed_inline_quotation--,≺2:$yes2≻");
+        res.to_string()
+        
+
+
+
+
+    let res = re.captures(stl);
+    match res {                                     // Print string [0] and [1]
+        Some(obj) => {
+            print!("\nres0: {}", obj.get(0).unwrap().as_str().trim());
+            print!("\nres1: {}", obj.get(1).unwrap().as_str().trim());
+        },
+        None => print!("\nNone"),
+    }
+
+
+        
+•═══════════··══════════════════·═══════════════════··══════════════════·═══════════════════··═══════════•
+        lazy_static! {
+            static ref RE_1_REMOVE_INLINE_QUOTES: Regex = Regex::new(r#"(?P<yes1>.*)(?P<no>,".*",)(?P<yes2>.*)"#).unwrap();
+        }
+•═══════════··══════════════════·═══════════════════··══════════════════·═══════════════════··═══════════•
+    fn fold(&self, ss: String) -> Option<&FMap>;
+•═══════════··══════════════════·═══════════════════··══════════════════·═══════════════════··═══════════•
+
+    fn fold_stg(mut self, ss: String) -> Option<&FMap> {
+        let mut res = FMap::from_string();
+        for line in ss.lines() {
+            match self.get(line) {
+                None => self.insert(line.to_string(), (0, 1)),
+                Some(count) => self.insert(line.to_string(), (count.0, count.1+1)),
+            };
+        }
+        Some(self)
+    }
+•═══════════··══════════════════·═══════════════════··══════════════════·═══════════════════··═══════════•
+•═══════════··══════════════════·═══════════════════··══════════════════·═══════════════════··═══════════•
+    fn fold_by_count(&self) -> Option<&FMap>;
+    fn fold_by_sum(&self) -> Option<&FMap>;
+    fn fold_by_count(self) -> Option<FMap> {
+
+        let res = FMap::from_string();
+        Some(res)
+    }
+
+
+
+    fn fold_by_sum(self) -> Option<FMap> { 
+        let res = FMap::from_string();
+        Some(res)
+    }
+•═══════════··══════════════════·═══════════════════··══════════════════·═══════════════════··═══════════•
+    fn fold(&self) -> Option<FMap> {
+        let res = FMap::from_string();
+        Some(res)
+    }
+•═══════════··══════════════════·═══════════════════··══════════════════·═══════════════════··═══════════•
+///λ check is an integration tester (int-tester) to check functionality in the development vector (dev-vector)
+pub fn check() -> Result<(), String> {
+
+    let my_location = "q4_fold::check";
+    print!("\n🎡𐡋 {my_location} \n");
+    match fs::read_to_string("/usr/local/sys/sys3rs/data/x32_in_count_duplicates.csv") {
+        Err(ee)       => Err(format!("read_error[{ee}]@{my_location}")),
+        Ok(in_string) => {
+            let fmap1 = fmap_count(in_string);
+            print!("fmap1:  {:?}\n", fmap1);
+            print!("{}\n", fmap_to_csv(true, "Key1, Key2, cnt1, cnt2", &fmap1));
+            Ok(())
+        },
+    }
+    /*
+    */
+}
+
+•═══════════··══════════════════·═══════════════════··══════════════════·═══════════════════··═══════════•
+impl Summary for NewsArticle {
+    fn summarize(&self) -> String {
+        format!("{}, by {} ({})", self.headline, self.author, self.location)
+    }
+}
+
+
+
+
+use std::fmt::Display;
+
+struct Pair<T> {
+    x: T,
+    y: T,
+}
+
+impl<T> Pair<T> {
+    fn new(x: T, y: T) -> Self {
+        Self { x, y }
+    }
+}
+
+impl<T: Display + PartialOrd> Pair<T> {
+    fn cmp_display(&self) {
+        if self.x >= self.y {
+            println!("The largest member is x = {}", self.x);
+        } else {
+            println!("The largest member is y = {}", self.y);
+        }
+    }
+}
+
+type Result<T> = std::result::Result<T, std::io::Error>;
+
+const C_LL: &str = "\n•═══════════··══════════════════·═══════════════════··═══════════•\n";
 
 
 
@@ -1102,6 +1476,264 @@ const (
 ·═══════════··════════════════ 🔻 ══════════════════··════════════════ 🔻 ══════════════════··════════════════ 🔻 ══════════════════··═══════════·
 ·═══════════··══════════════════════════════════════··══════════════════════════════════════··══════════════════════════════════════··═══════════·
 ․7․✨λ  (Fwd․ Chrono)
+// •════════··══════════════════·═══════════════════··══════════════════·═══════════════════··══════════════════·═══════════════════··═══════════•
+// ✨λ sysops::mod  ι✧21․12․25✦16․50․24․  🌎η ✧22․12․29․✧22․11․12․✧22․08․22․✧22․08․19․✧22․08․16․✧22․08․07․✧22․08․05․✧22․07․04․✧22․06․22․
+pub mod s4_metrics;
+// use lib3::q0_env::{get_cmd_code};
+// use lib3;
+
+
+// •════════··══════════════════·═══════════════════··══════════════════·═══════════════════··═══════════•
+//λ unit tests -- REALLY HARD TO TEST WITHOUT `use super::*;`
+
+// •════════··══════════════════·═══════════════════··══════════════════·═══════════════════··═══════════•
+
+
+/// check int-tests the active system as a whole
+pub fn check() -> Result<(), String> {
+
+    let my_location = "sysops::check"; 
+    print!("\n🎡𐡋 running: {}\n", my_location);
+    match lib3::q0_env::get_cmd_code() {
+        None => Ok(()),
+        Some(cmd_code) => {
+            print!("cmd_code: {cmd_code} \n");
+            match cmd_code.as_str() {
+                "add-hs"  => {                                    // add-hs y2hs.csv <- x2hs1.csv + x2hs2.csv  
+                    print!("\n🎡𐡋 {my_location}::\n");
+                    Ok(())
+                },                                   
+                "sub-hs"  => {                                    // sub-hs y2hs.csv <- x2hs1.csv - x2hs2.csv  
+                    print!("\n🎡𐡋 {my_location}::\n");
+                    Ok(())
+                },                                   
+                "add-hm"  => {                                    // add-hm y2hm.csv <- x2hm1.csv + x2hm2.csv  
+                    print!("\n🎡𐡋 {my_location}::\n");
+                    Ok(())
+                },                                   
+                "sub-hm"  => {                                    // sub-hm y2hm.csv <- x2hm1.csv - x2hm2.csv  
+                    print!("\n🎡𐡋 {my_location}::\n");
+                    Ok(())
+                },                                   
+                "rm-qt"  => {                                    // rm-qt y3clean.csv <- clean(x3raw.csv)  
+                    print!("\n🎡𐡋 {my_location}::\n");
+                    Ok(())
+                },                                   
+                "g-metr"  => {                                    // g-metr y4g-metrrics_fold1/2.csv <- fold(x4raw.csv)
+                    print!("\n🎡𐡋 {my_location}::\n");
+                    Ok(())
+                },                                    
+                "int-tst"  => {                                   // int-tstRun INT-Tests 
+                    print!("\n🎡𐡋 {my_location}:: \n");
+                    Ok(())
+                },                                    
+                "help"  => {                                   // help Help
+                    print!("\n🎡𐡋 {} \n", lib3::q0_env::_HELP_TABLE );
+                    Ok(())
+                },
+                _ => {
+                    Err(format!("⟸ sog-metrhing went wrong@{my_location}"))
+                }
+            }
+        }
+    }
+}
+
+
+
+// •════════··══════════════════·═══════════════════··══════════════════·═══════════════════··═══════════•
+///λ run() is the system's exec fn for sysops module; 
+pub fn run() -> Result<(), String> {
+
+    Ok(())
+}
+
+
+//λ The Code Pit
+/*
+•═══════════··══════════════════·═══════════════════··══════════════════·═══════════════════··═══════════•
+•═══════════··══════════════════·═══════════════════··══════════════════·═══════════════════··═══════════•
+// •════════··══════════════════·═══════════════════··══════════════════·═══════════════════··═══════════•
+///λ gen_fold_metrics() OLD 
+pub fn gen_fold_metrics() -> Result<(), String> {
+
+    let my_location = "s1_metrics::gen_fold_metrics";
+    print!("\n🎡𐡋 running: {}\n", my_location);
+    match fs::read_to_string("/usr/local/sys/sys3rs/data/x41_input_data.csv") {
+        Err(ee) => Err(format!("read_error[{ee}]@{my_location}")),
+
+        Ok(in_string) => {
+            print!("\n🎡𐡋 read file 👍υ OK! \n");
+            let fmap1 = FMap::init(in_string);
+            let table1 = format!("{}\n", fmap1.to_table());
+
+            print!("\n🎡𐡋 writing first file 👍υ OK! \n");
+            
+            match fs::write("/usr/local/sys/sys3rs/data/y42_iter1_subtable.csv", &table1) {
+                Err(ee) => Err(format!("write_fmap_error[{ee}]@{my_location}")),
+                _ => {
+                    print!("\n🎡𐡋 wrote first file 👍υ OK! \n");
+                    let table2 = format!("{}\n", fmap1.fold().to_table());
+                    match fs::write("/usr/local/sys/sys3rs/data/y42_iter2_subtable.csv", &table2) {
+                        Err(ee) => Err(format!("write_key_error[{ee}]@{my_location}")),
+                        _ => {
+                            print!("\n🎡𐡋 wrote second file 👍υ OK! \n");
+                            Ok(())
+                        },
+                    }
+                },
+            }
+        },
+    }
+}
+
+
+•═══════════··══════════════════·═══════════════════··══════════════════·═══════════════════··═══════════•
+/// check int-tests the active system as a whole
+pub fn check() -> Result<(), String> {
+
+    let my_location = "sysops::run"; 
+    print!("\n🎡𐡋 running: {}\n", my_location);
+    let cmd_code = get_cmd_code();
+    
+    let my_location = "s1_exec::run";
+    match cmd_code.as_str() {
+        "hsp"  => {                                    // y2hs.csv <- x2hs1.csv + x2hs2.csv  
+            print!("\n🎡𐡋 {my_location}::add-hs \n");
+        },                                   
+        "hsm"  => {                                    // y2hs.csv <- x2hs1.csv - x2hs2.csv  
+            print!("\n🎡𐡋 {my_location}::sub-hs \n");
+        },                                   
+        "hmp"  => {                                    // y2hm.csv <- x2hm1.csv + x2hm2.csv  
+            print!("\n🎡𐡋 {my_location}::add-hm \n");
+        },                                   
+        "hmm"  => {                                    // y2hm.csv <- x2hm1.csv - x2hm2.csv  
+            print!("\n🎡𐡋 {my_location}::sub-hm \n");
+        },                                   
+        "rm-qt"  => {                                    // y3clean.csv <- clean(x3raw.csv)  
+            print!("\n🎡𐡋 {my_location}::rm-qt \n");
+        },                                   
+        "g-metr"  => {                                    // y4g-metrrics_fold1/2.csv <- fold(x4raw.csv)
+            print!("\n🎡𐡋 {my_location}::g-metr \n");
+        },                                    
+        "int-tst"  => {                                   // Run INT-Tests 
+            print!("\n🎡𐡋 {my_location}::int-tst \n");
+        },                                    
+        "help"  => {                                   // Help
+            print!("\n🎡𐡋 {my_location}::help \n");
+        },
+        _ => {
+            Err(format!("⟸ {my_location}"));
+        }
+    }
+}
+
+
+•═══════════··══════════════════·═══════════════════··══════════════════·═══════════════════··═══════════•
+///λ run() gets the function-code to be executed and runs the corresponding fn
+pub fn run() -> Result<(), String> {
+
+    let my_location = "sysops::run"; 
+    print!("\n🎡𐡋 running: {}\n", my_location);
+    let cmd_code = get_cmd_code();
+    
+    let my_location = "s1_exec::run";
+    match cmd_code {
+        "2add-hs"  => {                // y2hs.csv <- x2hs1.csv + x2hs2.csv  
+            match s2_hash::add_hashsets() {
+                Err(ee) => Err(format!("{ee}⟸ {my_location}")),
+                _ => Ok(()),
+            }
+        }
+        "2sub-hs"  => {                // y2hs.csv <- x2hs1.csv - x2hs2.csv  
+            match s2_hash::sub_hashsets() {
+                Err(ee) => Err(format!("{ee}⟸ {my_location}")),
+                _ => Ok(()),
+            }
+        }
+        "2add-hm"  => {                // y2hm.csv <- x2hm1.csv + x2hm2.csv  
+            match s2_hash::add_hashmaps() {
+                Err(ee) => Err(format!("{ee}⟸ {my_location}")),
+                _ => Ok(()),
+            }
+        }
+        "2sub-hm"  => {                // y2hm.csv <- x2hm1.csv - x2hm2.csv  
+            match s2_hash::sub_hashmaps() {
+                Err(ee) => Err(format!("{ee}⟸ {my_location}")),
+                _ => Ok(()),
+            }
+        }
+        "3rm-qt"  => {                // y3clean.csv <- clean(x3raw.csv)  
+            match s3_regex::clean_csv() {
+                Err(ee) => Err(format!("{ee}⟸ {my_location}")),
+                _ => Ok(()),
+            }
+        }
+        "4g-metr"  => {                // y4g-metrrics_fold1/2.csv <- fold(x4raw.csv)  ║ 
+            match s4_metrics::gen_folds() {
+                Err(ee) => Err(format!("{ee}⟸ {my_location}")),
+                _ => Ok(()),
+            }
+        }
+        "int-tst"  => {                // Run INT-Tests 
+            print!("\n🎡𐡋 {my_location}::int-tst \n");
+        }
+        "help"  => {                // Help
+        }
+        _ => {
+            Err(ee) => Err(format!("{ee}⟸ {my_location}")),
+        }
+}
+
+•═══════════··══════════════════·═══════════════════··══════════════════·═══════════════════··═══════════•
+/// check int-tests the active system as a whole
+pub fn check() -> Result<(), String> {
+
+    let my_location = "sysops::check";
+    match s1_metrics::check() {                                     // checking g-metrrics calculations 
+        Err(ee) => Err(format!("{ee}⟸ {my_location}")),
+        _ => Ok(()),
+    }
+}
+•═══════════··══════════════════·═══════════════════··══════════════════·═══════════════════··═══════════•
+    match s1_metrics::run() {
+        Err(ee) => Err(format!("{ee}⟸ {my_location}")),
+        _ => Ok(()),
+    }
+•═══════════··══════════════════·═══════════════════··══════════════════·═══════════════════··═══════════•
+// •════════··══════════════════·═══════════════════··══════════════════·═══════════════════··═══════════•
+///λ run() is the system's exec fn for sysopss module; 
+pub fn run() -> Result<(), String> {
+
+    let my_location = "s1_exec::run";
+    let lex1 = Lex::new();
+    print!("lex1: \n{lex1}");
+    
+    match map_iter_2() {
+        Err(ee) => Err(format!("{ee}⟸ {my_location}")),
+        _ => Ok(()),
+    }
+}
+
+
+•═══════════··══════════════════·═══════════════════··══════════════════·═══════════════════··═══════════•
+•═══════════··══════════════════·═══════════════════··══════════════════·═══════════════════··═══════════•
+λ Crates § Modules
+
+mod sysops_exec;
+mod a84_re_multiline;               use a84_re_multiline::{check};
+mod a83_regex_basics;               use a83_regex_basics::{check};
+mod a82_string_g-metrhods;             use a82_string_g-metrhods::{check};
+
+
+•═══════════··══════════════════·═══════════════════··══════════════════·═══════════════════··═══════════•
+mod sysops_exec;                    use sysops_exec::{check};
+•═══════════··══════════════════·═══════════════════··══════════════════·═══════════════════··═══════════•
+•═══════════··══════════════════·═══════════════════··══════════════════·═══════════════════··═══════════•
+•═══════════··══════════════════·═══════════════════··══════════════════·═══════════════════··═══════════•
+*/
+// End Of The Code Pit
+
 
 
 •           ·                   ·                   ·                   ·                   ·                   ·                   ·            •

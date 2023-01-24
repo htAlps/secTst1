@@ -1,9 +1,10 @@
 // •════════··══════════════════·═══════════════════··══════════════════·═══════════════════··══════════════════·═══════════════════··═══════════•
 // ✨λ s1_metrics  ι✧21․11․22✦10․08․26․ 🌎η ✧22․11․12․✧22․10․22․✧22․08․19․✧22․04․21․✧21․12․15․
-// Folding metrics on csv files 
+// Folding g-metrrics on csv files 
 #![allow(dead_code)]
 use std::fs;
-use lib3::q4_fold::*;
+use lib3::q4_fold::{Fold, FMap};
+// use lib3::q3_regex::Clean;
 
 // •════════··══════════════════·═══════════════════··══════════════════·═══════════════════··═══════════•
 //λ unit tests -- REALLY HARD TO TEST WITHOUT `use super::*;`
@@ -19,38 +20,32 @@ mod test_regex {
 
 const C_LL: &str = "\n•═══════════··══════════════════·═══════════════════··═══════════•\n";
 
-// •════════··══════════════════·═══════════════════··══════════════════·═══════════════════··═══════════•
-///λ gen_metrics() is the system's exec fn for sysops::s1_metrics sub-module; 
-pub fn gen_metrics() -> Result<(), String> {
+///λ gen_fold_metrics(): y4g-metrrics_fold1/2.csv <- fold(x4raw.csv) 
+///  generates g-metrrics based on counting and folding g-metrhods  i.e.: 
+///  1. reads a csv file and generates a hashmap of each unique value and its count 
+///  2. removes the first column and repeats the process but keeing the original count 
+///  3. writes the result to another csv file 
+pub fn gen_fold_metrics() -> Result<(), String> {
 
-    print!("\n🎡𐡋 running: sysops::s1_metrics:run \n");
-    
-    let my_location = "s1_metrics::run";
+    let my_location = "s4_metrics::gen_fold_metrics";
+    print!("\n🎡𐡋 running: {}\n", my_location);
     match fs::read_to_string("x4raw.csv") {
         Err(ee) => Err(format!("read_error[{ee}]@{my_location}")),
 
         Ok(in_string) => {
             print!("\n🎡𐡋 read file 👍υ OK! \n");
-            let fmap1 = FMap::init(in_string);
-            let table1 = format!("{}\n", fmap1.to_table());
-
-            print!("\n🎡𐡋 writing first file 👍υ OK! \n");
-            
-            match fs::write("y4metrics_fold1.csv", &table1) {
-                Err(ee) => Err(format!("write_fmap_error[{ee}]@{my_location}")),
+            let fmap1: lib3::q4_fold::FMap = FMap::new().from_string(in_string);
+            match fmap1.to_file("y4g-metrrics_fold1.csv") {
+                Err(ee) => Err(format!("{ee}⟸ {my_location}")),
                 _ => {
-                    print!("\n🎡𐡋 wrote first file 👍υ OK! \n");
-                    let table2 = format!("{}\n", fmap1.fold().to_table());
-                    match fs::write("y4metrics_fold2.csv", &table2) {
+                    print!("\n🎡𐡋 fold 1 written 👍υ OK! \n");
+                    match fmap1.fold().to_file("y4g-metrrics_fold2.csv") {
                         Err(ee) => Err(format!("write_key_error[{ee}]@{my_location}")),
-                        _ => {
-                            print!("\n🎡𐡋 wrote second file 👍υ OK! \n");
-                            Ok(())
-                        },
+                        _ => Ok(()),
                     }
-                },
+                }
             }
-        },
+        }
     }
 }
 
@@ -66,39 +61,6 @@ pub fn check() -> Result<(), String> {
 /*
 •═══════════··══════════════════·═══════════════════··══════════════════·═══════════════════··═══════════•
 •═══════════··══════════════════·═══════════════════··══════════════════·═══════════════════··═══════════•
-// •════════··══════════════════·═══════════════════··══════════════════·═══════════════════··═══════════•
-///λ fmap_iter does the first hashmap iteration of counting duplicates, i.e.:
-///  1. reads table from x41_in_data.csv and runs the first hashmapping iteration 
-///  2. writes the resulting hashmap to: y41_iter1_res.csv
-///  3. removes the last column of the table and writes subtable to: x42_iter1_subtable.csv
-pub fn fmap_iter()  -> Result<(), String> {
-
-    let my_location = "s1_metrics::fmap_iter";
-    match fs::read_to_string("/usr/local/sys/sys3rs/data/x41_input_data.csv") {
-        Err(ee) => Err(format!("read_error[{ee}]@{my_location}")),
-
-        Ok(in_string) => {
-            let fmap1 = fmap_count(in_string);
-            let csv1 = format!("{}\n", fmap_to_csv(true, "col1, col2, cnt1, cnt2", &fmap1));
-            
-            match fs::write("/usr/local/sys/sys3rs/data/y41_iter1_res.csv", &csv1) {
-                Err(ee) => Err(format!("write_fmap_error[{ee}]@{my_location}")),
-                _ => {
-                    let csv1 = format!("{}\n", fmap_to_table(&fmap1));
-                    
-                    match fs::write("/usr/local/sys/sys3rs/data/x42_iter1_subtable.csv", &csv1) {
-                        Err(ee) => Err(format!("write_key_error[{ee}]@{my_location}")),
-                        _ => Ok(()),
-                    }
-                },
-            }
-        },
-    }
-}
-
-
-•═══════════··══════════════════·═══════════════════··══════════════════·═══════════════════··═══════════•
-            let csv1 = format!("{}\n", fmap1.to_csv("col1, col2, cnt1, cnt2"));
 •═══════════··══════════════════·═══════════════════··══════════════════·═══════════════════··═══════════•
             let csv1 = format!("{}\n", fmap_to_csv(true, "col1, col2, cnt1, cnt2", &fmap1));
 format!("{}\n", fmap_to_table(&fmap1));
@@ -107,7 +69,6 @@ format!("{}\n", fmap_to_table(&fmap1));
             print!("{}\n",lib3::q2_hash::fmap_to_csv(false, "Key", "Value", &fmap));
             Ok(())
 •═══════════··══════════════════·═══════════════════··══════════════════·═══════════════════··═══════════•
-    let my_location = "s1_metrics::check";
     match lib3::check() {
         Err(ee) => Err(format!("{ee}⟸ {my_location}")),
         _       => Ok(()),

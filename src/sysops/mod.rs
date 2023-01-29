@@ -44,7 +44,7 @@ pub fn run() -> Result<(), String> {
                         _ => Ok(()),                                                                                         
                     }                                                                                                        
                 },                                                                                                           
-                "sub-hs"  => {                                      // sub-hs:  y2hs2.csv <- x2hs1.csv ∆ x2hs2.csv      - == ∆ (Symetric-Difference)
+                "sub-hs"  => {                                      // sub-hs:  y2hs2.csv <- x2hs1.csv ─ x2hs2.csv      - == ─ (Symetric-Difference)
                     print!("\n🎡𐡋 {my_location}::\n");                                                                       
                     match s2_hash::sub_sets() {                                                                              
                         Err(ee) => Err(format!("{ee}⟸ {my_location}")),                                                      
@@ -65,7 +65,7 @@ pub fn run() -> Result<(), String> {
                         _ => Ok(()),                                                                                         
                     }                                                                                                        
                 },                                                                                                           
-                "sub-hm"  => {                                      // sub-hm:  y2hm2.csv <- x2hm1.csv ∆ x2hm2.csv      - == ∆ (Symetric-Difference)
+                "sub-hm"  => {                                      // sub-hm:  y2hm2.csv <- x2hm1.csv ─ x2hm2.csv      - == ─ (Symetric-Difference)
                     print!("\n🎡𐡋 {my_location}::\n");                                                                       
                     match s2_hash::sub_maps() {                                                                              
                         Err(ee) => Err(format!("{ee}⟸ {my_location}")),                                                      
@@ -86,14 +86,21 @@ pub fn run() -> Result<(), String> {
                         _ => Ok(()),
                     }
                 },                                   
-                "g-metr"  => {                                      // g-metr:  y4g-metrrics_fold1/2.csv <- fold(x4raw.csv)
+                "g0metr"  => {                                      // g0metr:  y40metrics_fold1/2.csv <- fold(x40raw.csv)
                     print!("\n🎡𐡋 {my_location}::\n");
-                    match s4_metrics::gen_fold_metrics() {
+                    match s4_metrics::gen_fold_metrics_v0() {
                         Err(ee) => Err(format!("{ee}⟸ {my_location}")),
                         _ => Ok(()),
                     }
                 },                                    
-                "check"  => {                                     // check: Run INT-Tests 
+                "g1metr"  => {                                      // g1metr:  y41metrics_fold1/2.csv <- fold(x41raw.csv)
+                    print!("\n🎡𐡋 {my_location}::\n");
+                    match s4_metrics::gen_fold_metrics_v1() {
+                        Err(ee) => Err(format!("{ee}⟸ {my_location}")),
+                        _ => Ok(()),
+                    }
+                },                                    
+                "check"  => {                                       // check: Run INT-Tests 
                     print!("\n🎡𐡋 {my_location}:: \n");
                     match check() {
                         Err(ee) => Err(format!("{ee}⟸ {my_location}")),
@@ -147,7 +154,7 @@ pub fn run() -> Result<(), String> {
 pub fn check() -> Result<(), String> {
 
     let my_location = "sysops::check";
-    match s1_metrics::check() {                                     // checking g-metrrics calculations 
+    match s1_metrics::check() {                                     // checking metrics calculations 
         Err(ee) => Err(format!("{ee}⟸ {my_location}")),
         _ => Ok(()),
     }
@@ -180,7 +187,7 @@ pub fn run() -> Result<(), String> {
 mod sysops_exec;
 mod a84_re_multiline;               use a84_re_multiline::{check};
 mod a83_regex_basics;               use a83_regex_basics::{check};
-mod a82_string_g-metrhods;             use a82_string_g-metrhods::{check};
+mod a82_string_methods;             use a82_string_methods::{check};
 
 
 •═══════════··══════════════════·═══════════════════··══════════════════·═══════════════════··═══════════•

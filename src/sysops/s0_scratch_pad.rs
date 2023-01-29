@@ -936,7 +936,7 @@ impl Lex {
 
 
 •═══════════··══════════════════·═══════════════════··══════════════════·═══════════════════··═══════════•
-    errorLexium     lexiumNag-metr = iota      // when error happens lexiumValue becomes the text of the error
+    errorLexium     lexiumName = iota      // when error happens lexiumValue becomes the text of the error
     dotLexium                               // '.'
     eofLexium                               // value is text of error
 
@@ -947,8 +947,8 @@ impl Lex {
     fieldLexium                             // starting with '.'
     idLexium                                // identifier
 
-    leftg-metraLexium                          // '{{'
-    rghtg-metraLexium                          // '}}'
+    leftSetLexium                          // '{{'
+    rghtSetLexium                          // '}}'
 
     numberLexium                            // a number eg: '123.45'
     pipeLexium                              // '|'
@@ -964,8 +964,8 @@ const (
     dotC    = ".";      elseC   = "";
     eofC    = "";       endC    = "";
 
-    fieldC  = "";       leftg-metraC   = "{{";
-    iDC     = "";       rightg-metraC  = "}}";
+    fieldC  = "";       leftC   = "{{";
+    iDC     = "";       rightC  = "}}";
 
     numberC = "";       rawStringC  = "";
     pipeC   = "|";      stringC     = "";
@@ -1099,7 +1099,14 @@ pub fn run() -> Result<(), String> {
                         _ => Ok(()),
                     }
                 },                                   
-                "g-metr"  => {                                      // g-metr:  y4g-metrrics_fold1/2.csv <- fold(x4raw.csv)
+                "g0metr"  => {                                      // g0metr:  y40metrics_fold1/2.csv <- fold(x40raw.csv)
+                    print!("\n🎡𐡋 {my_location}::\n");
+                    match s4_metrics::gen_fold_metrics() {
+                        Err(ee) => Err(format!("{ee}⟸ {my_location}")),
+                        _ => Ok(()),
+                    }
+                },                                    
+                "g1metr"  => {                                      // g0metr:  y41metrics_fold1/2.csv <- fold(x41raw.csv)
                     print!("\n🎡𐡋 {my_location}::\n");
                     match s4_metrics::gen_fold_metrics() {
                         Err(ee) => Err(format!("{ee}⟸ {my_location}")),
@@ -1171,7 +1178,7 @@ pub fn run() -> Result<(), String> {
                 _ => Ok(()),
             }
         }
-        "4g-metr"  => {                // y4g-metrrics_fold1/2.csv <- fold(x4raw.csv)  ║ 
+        "g0metr"  => {                // y40metrics_fold1/2.csv <- fold(x40raw.csv)  ║ 
             match s4_metrics::gen_folds() {
                 Err(ee) => Err(format!("{ee}⟸ {my_location}")),
                 _ => Ok(()),
@@ -1192,7 +1199,7 @@ pub fn run() -> Result<(), String> {
 pub fn check() -> Result<(), String> {
 
     let my_location = "sysops::check";
-    match s1_metrics::check() {                                     // checking g-metrrics calculations 
+    match s1_metrics::check() {                                     // checking g0metrics calculations 
         Err(ee) => Err(format!("{ee}⟸ {my_location}")),
         _ => Ok(()),
     }
@@ -1225,7 +1232,7 @@ pub fn run() -> Result<(), String> {
 mod sysops_exec;
 mod a84_re_multiline;               use a84_re_multiline::{check};
 mod a83_regex_basics;               use a83_regex_basics::{check};
-mod a82_string_g-metrhods;             use a82_string_g-metrhods::{check};
+mod a82_string_methods;             use a82_string_methods::{check};
 
 
 •═══════════··══════════════════·═══════════════════··══════════════════·═══════════════════··═══════════•
@@ -1519,7 +1526,11 @@ pub fn check() -> Result<(), String> {
                     print!("\n🎡𐡋 {my_location}::\n");
                     Ok(())
                 },                                   
-                "g-metr"  => {                                    // g-metr y4g-metrrics_fold1/2.csv <- fold(x4raw.csv)
+                "g0metr"  => {                                    // g0metr y40metrics_fold1/2.csv <- fold(x40raw.csv)
+                    print!("\n🎡𐡋 {my_location}::\n");
+                    Ok(())
+                },                                    
+                "g1metr"  => {                                    // g0metr y41metrics_fold1/2.csv <- fold(x41raw.csv)
                     print!("\n🎡𐡋 {my_location}::\n");
                     Ok(())
                 },                                    
@@ -1532,7 +1543,7 @@ pub fn check() -> Result<(), String> {
                     Ok(())
                 },
                 _ => {
-                    Err(format!("⟸ sog-metrhing went wrong@{my_location}"))
+                    Err(format!("⟸ sometrhing went wrong@{my_location}"))
                 }
             }
         }
@@ -1588,109 +1599,13 @@ pub fn gen_fold_metrics() -> Result<(), String> {
 }
 
 
-•═══════════··══════════════════·═══════════════════··══════════════════·═══════════════════··═══════════•
-/// check int-tests the active system as a whole
-pub fn check() -> Result<(), String> {
-
-    let my_location = "sysops::run"; 
-    print!("\n🎡𐡋 running: {}\n", my_location);
-    let cmd_code = get_cmd_code();
-    
-    let my_location = "s1_exec::run";
-    match cmd_code.as_str() {
-        "hsp"  => {                                    // y2hs.csv <- x2hs1.csv + x2hs2.csv  
-            print!("\n🎡𐡋 {my_location}::add-hs \n");
-        },                                   
-        "hsm"  => {                                    // y2hs.csv <- x2hs1.csv - x2hs2.csv  
-            print!("\n🎡𐡋 {my_location}::sub-hs \n");
-        },                                   
-        "hmp"  => {                                    // y2hm.csv <- x2hm1.csv + x2hm2.csv  
-            print!("\n🎡𐡋 {my_location}::add-hm \n");
-        },                                   
-        "hmm"  => {                                    // y2hm.csv <- x2hm1.csv - x2hm2.csv  
-            print!("\n🎡𐡋 {my_location}::sub-hm \n");
-        },                                   
-        "rm-qt"  => {                                    // y3clean.csv <- clean(x3raw.csv)  
-            print!("\n🎡𐡋 {my_location}::rm-qt \n");
-        },                                   
-        "g-metr"  => {                                    // y4g-metrrics_fold1/2.csv <- fold(x4raw.csv)
-            print!("\n🎡𐡋 {my_location}::g-metr \n");
-        },                                    
-        "int-tst"  => {                                   // Run INT-Tests 
-            print!("\n🎡𐡋 {my_location}::int-tst \n");
-        },                                    
-        "help"  => {                                   // Help
-            print!("\n🎡𐡋 {my_location}::help \n");
-        },
-        _ => {
-            Err(format!("⟸ {my_location}"));
-        }
-    }
-}
-
-
-•═══════════··══════════════════·═══════════════════··══════════════════·═══════════════════··═══════════•
-///λ run() gets the function-code to be executed and runs the corresponding fn
-pub fn run() -> Result<(), String> {
-
-    let my_location = "sysops::run"; 
-    print!("\n🎡𐡋 running: {}\n", my_location);
-    let cmd_code = get_cmd_code();
-    
-    let my_location = "s1_exec::run";
-    match cmd_code {
-        "2add-hs"  => {                // y2hs.csv <- x2hs1.csv + x2hs2.csv  
-            match s2_hash::add_hashsets() {
-                Err(ee) => Err(format!("{ee}⟸ {my_location}")),
-                _ => Ok(()),
-            }
-        }
-        "2sub-hs"  => {                // y2hs.csv <- x2hs1.csv - x2hs2.csv  
-            match s2_hash::sub_hashsets() {
-                Err(ee) => Err(format!("{ee}⟸ {my_location}")),
-                _ => Ok(()),
-            }
-        }
-        "2add-hm"  => {                // y2hm.csv <- x2hm1.csv + x2hm2.csv  
-            match s2_hash::add_hashmaps() {
-                Err(ee) => Err(format!("{ee}⟸ {my_location}")),
-                _ => Ok(()),
-            }
-        }
-        "2sub-hm"  => {                // y2hm.csv <- x2hm1.csv - x2hm2.csv  
-            match s2_hash::sub_hashmaps() {
-                Err(ee) => Err(format!("{ee}⟸ {my_location}")),
-                _ => Ok(()),
-            }
-        }
-        "3rm-qt"  => {                // y3clean.csv <- clean(x3raw.csv)  
-            match s3_regex::clean_csv() {
-                Err(ee) => Err(format!("{ee}⟸ {my_location}")),
-                _ => Ok(()),
-            }
-        }
-        "4g-metr"  => {                // y4g-metrrics_fold1/2.csv <- fold(x4raw.csv)  ║ 
-            match s4_metrics::gen_folds() {
-                Err(ee) => Err(format!("{ee}⟸ {my_location}")),
-                _ => Ok(()),
-            }
-        }
-        "int-tst"  => {                // Run INT-Tests 
-            print!("\n🎡𐡋 {my_location}::int-tst \n");
-        }
-        "help"  => {                // Help
-        }
-        _ => {
-            Err(ee) => Err(format!("{ee}⟸ {my_location}")),
-        }
-}
 
 •═══════════··══════════════════·═══════════════════··══════════════════·═══════════════════··═══════════•
 /// check int-tests the active system as a whole
 pub fn check() -> Result<(), String> {
 
     let my_location = "sysops::check";
-    match s1_metrics::check() {                                     // checking g-metrrics calculations 
+    match s1_metrics::check() {                                     // checking metrics calculations 
         Err(ee) => Err(format!("{ee}⟸ {my_location}")),
         _ => Ok(()),
     }
@@ -1723,7 +1638,7 @@ pub fn run() -> Result<(), String> {
 mod sysops_exec;
 mod a84_re_multiline;               use a84_re_multiline::{check};
 mod a83_regex_basics;               use a83_regex_basics::{check};
-mod a82_string_g-metrhods;             use a82_string_g-metrhods::{check};
+mod a82_string_methods;             use a82_string_methods::{check};
 
 
 •═══════════··══════════════════·═══════════════════··══════════════════·═══════════════════··═══════════•

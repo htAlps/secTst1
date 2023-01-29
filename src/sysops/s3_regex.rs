@@ -31,7 +31,7 @@ mod test_regex {
 pub fn clean_csv() -> Result<(), String> {
     let my_location = "q3_regex::from_file";
     print!("\n🎡𐡋 running: {}\n", my_location);
-    let csv: lib3::q3_regex::CleanCsvString = lib3::q3_regex::CleanCsvString::new();
+    let csv = String::new();
     match csv.from_file("x3raw.csv") {
         Err(ee) => Err(format!("{ee}⟸ {my_location}")),
         Ok(in_csv) => {

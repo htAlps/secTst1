@@ -92,7 +92,7 @@ Anouncements:
 fn main() -> Result<(), String> {
 
     let my_location = "main"; 
-    print!("\n🎡𐡋 running: {}\n", my_location);
+    print!("\n🎡𐡋 {my_location} \n");
     match lib3::check() {                                          // temporarily checking library 
         Err(ee) => Err(format!("{ee}⟸ {my_location}")),
         _ => Ok(()),
@@ -1058,7 +1058,7 @@ pub mod s4_metrics;
 pub fn run() -> Result<(), String> {
 
     let my_location = "sysops::check"; 
-    print!("\n🎡𐡋 running: {}\n", my_location);
+        print!("\n🎡𐡋 {my_location} \n");
     match lib3::q0_env::get_cmd_code() {
         None => Ok(()),
         Some(cmd_code) => {
@@ -1092,7 +1092,7 @@ pub fn run() -> Result<(), String> {
                         _ => Ok(()),
                     }
                 },                                   
-                "rm-qt"  => {                                       // rm-qt:   y3clean.csv <- clean(x3raw.csv)  
+                "clean"  => {                                       // clean:   y3clean.csv <- clean(x3raw.csv)  
                     print!("\n🎡𐡋 {my_location}::\n");
                     match s3_regex::clean_csv() {
                         Err(ee) => Err(format!("{ee}⟸ {my_location}")),
@@ -1143,7 +1143,7 @@ pub fn run() -> Result<(), String> {
 pub fn run() -> Result<(), String> {
 
     let my_location = "sysops::run"; 
-    print!("\n🎡𐡋 running: {}\n", my_location);
+        print!("\n🎡𐡋 {my_location} \n");
     let cmd_code = get_cmd_code();
     
     let my_location = "s1_exec::run";
@@ -1172,7 +1172,7 @@ pub fn run() -> Result<(), String> {
                 _ => Ok(()),
             }
         }
-        "3rm-qt"  => {                // y3clean.csv <- clean(x3raw.csv)  
+        "3clean"  => {                // y3clean.csv <- clean(x3raw.csv)  
             match s3_regex::clean_csv() {
                 Err(ee) => Err(format!("{ee}⟸ {my_location}")),
                 _ => Ok(()),
@@ -1500,7 +1500,7 @@ pub mod s4_metrics;
 pub fn check() -> Result<(), String> {
 
     let my_location = "sysops::check"; 
-    print!("\n🎡𐡋 running: {}\n", my_location);
+        print!("\n🎡𐡋 {my_location} \n");
     match lib3::q0_env::get_cmd_code() {
         None => Ok(()),
         Some(cmd_code) => {
@@ -1522,7 +1522,7 @@ pub fn check() -> Result<(), String> {
                     print!("\n🎡𐡋 {my_location}::\n");
                     Ok(())
                 },                                   
-                "rm-qt"  => {                                    // rm-qt y3clean.csv <- clean(x3raw.csv)  
+                "clean"  => {                                    // clean y3clean.csv <- clean(x3raw.csv)  
                     print!("\n🎡𐡋 {my_location}::\n");
                     Ok(())
                 },                                   
@@ -1569,7 +1569,7 @@ pub fn run() -> Result<(), String> {
 pub fn gen_fold_metrics() -> Result<(), String> {
 
     let my_location = "s1_metrics::gen_fold_metrics";
-    print!("\n🎡𐡋 running: {}\n", my_location);
+        print!("\n🎡𐡋 {my_location} \n");
     match fs::read_to_string("/usr/local/sys/sys3rs/data/x41_input_data.csv") {
         Err(ee) => Err(format!("read_error[{ee}]@{my_location}")),
 

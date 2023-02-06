@@ -30,7 +30,8 @@ mod test_regex {
 ///λ clean_csv(): y3clean.csv <- clean(x3raw.csv)
 pub fn clean_csv() -> Result<(), String> {
     let my_location = "q3_regex::from_file";
-    print!("\n🎡𐡋 running: {}\n", my_location);
+    lib3::q0_env::log_event("trace", my_location, true);
+
     let csv = String::new();
     match csv.from_file("x3raw.csv") {
         Err(ee) => Err(format!("{ee}⟸ {my_location}")),
@@ -61,7 +62,7 @@ pub fn run() -> Result<(), String> {
     print!("\n🎡𐡋 running: sysops::s3_metrics:run \n");
     
     let my_location = "s3_metrics::run";
-    print!("\n🎡𐡋 running: {}\n", my_location);
+    print!("\n🎡𐡋 {my_location} \n");
     match fs::read_to_string("/usr/local/sys/sys3rs/data/x41_input_data.csv") {
         Err(ee) => Err(format!("read_error[{ee}]@{my_location}")),
 

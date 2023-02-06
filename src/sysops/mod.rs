@@ -30,8 +30,8 @@ pub fn check() -> Result<(), String> {
 /// check int-tests the active system as a whole
 pub fn run() -> Result<(), String> {
 
-    let my_location = "sysops::run"; 
-    print!("\n🎡𐡋 running: {}\n", my_location);
+    let my_location = "sysops::mod::run"; 
+    lib3::q0_env::log_event("trace", my_location, true);
     match lib3::q0_env::get_cmd_code() {
         None => Ok(()),
         Some(cmd_code) => {
@@ -79,7 +79,7 @@ pub fn run() -> Result<(), String> {
                         _ => Ok(()),
                     }
                 },                                   
-                "rm-qt"  => {                                       // rm-qt:   y3clean.csv <- clean(x3raw.csv)  
+                "clean"  => {                                       // clean:   y3clean.csv <- clean(x3raw.csv)  
                     print!("\n🎡𐡋 {my_location}::\n");
                     match s3_regex::clean_csv() {
                         Err(ee) => Err(format!("{ee}⟸ {my_location}")),
@@ -96,6 +96,13 @@ pub fn run() -> Result<(), String> {
                 "g1metr"  => {                                      // g1metr:  y41metrics_fold1/2.csv <- fold(x41raw.csv)
                     print!("\n🎡𐡋 {my_location}::\n");
                     match s4_metrics::gen_fold_metrics_v1() {
+                        Err(ee) => Err(format!("{ee}⟸ {my_location}")),
+                        _ => Ok(()),
+                    }
+                },                                    
+                "p0node"  => {                                      // g1metr:  y41metrics_fold1/2.csv <- fold(x41raw.csv)
+                    print!("\n🎡𐡋 {my_location}::\n");
+                    match s4_metrics::check_print_fnode_v0() {
                         Err(ee) => Err(format!("{ee}⟸ {my_location}")),
                         _ => Ok(()),
                     }
@@ -133,7 +140,7 @@ pub fn run() -> Result<(), String> {
 pub fn run() -> Result<(), String> {
 
     let my_location = "sysops::run"; 
-    print!("\n🎡𐡋 running: {}\n", my_location);
+    print!("\n🎡𐡋 {my_location} \n");
     let cmd_code = get_cmd_code();
     
     let my_location = "s1_exec::run";

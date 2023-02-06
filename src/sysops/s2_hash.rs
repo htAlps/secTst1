@@ -85,7 +85,7 @@ pub fn int_maps()  -> Result<(), String> {
 pub fn run() -> Result<(), String> {
 
     let my_location = "s2_hash::run";
-    print!("\n🎡𐡋 running: {}\n", my_location);
+    print!("\n🎡𐡋 {my_location} \n");
     Ok(())
 }
 
@@ -99,7 +99,7 @@ pub fn run() -> Result<(), String> {
 pub fn run() -> Result<(), String> {
 
     let my_location = "s2_hash::run";
-    print!("\n🎡𐡋 running: {}\n", my_location);
+    print!("\n🎡𐡋 {my_location} \n");
     match fs::read_to_string("/usr/local/sys/sys3rs/data/x41_input_data.csv") {
         Err(ee) => Err(format!("read_error[{ee}]@{my_location}")),
 
@@ -137,7 +137,7 @@ pub fn run() -> Result<(), String> {
 pub fn fmap_iter()  -> Result<(), String> {
 
     let my_location = "s2_hash::fmap_iter";
-    print!("\n🎡𐡋 running: {}\n", my_location);
+    print!("\n🎡𐡋 {my_location} \n");
     match fs::read_to_string("/usr/local/sys/sys3rs/data/x41_input_data.csv") {
         Err(ee) => Err(format!("read_error[{ee}]@{my_location}")),
 

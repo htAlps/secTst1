@@ -3,119 +3,91 @@
 pub mod s2_hash;
 pub mod s3_regex;
 pub mod s4_metrics;
-// use lib3::q0_env;
-// use lib3::q3_regex;
-// use lib3;
+use lib3::q0_env::{EvType, log_event};
 
-
-// •════════··══════════════════·═══════════════════··══════════════════·═══════════════════··═══════════•
-//λ unit tests -- REALLY HARD TO TEST WITHOUT `use super::*;`
-
-// •════════··══════════════════·═══════════════════··══════════════════·═══════════════════··═══════════•
-
-// •════════··══════════════════·═══════════════════··══════════════════·═══════════════════··═══════════•
-/// check runs each module integration tests 
-pub fn check() -> Result<(), String> {
-
-    let my_location = "sysops::check"; 
-    print!("\n🎡𐡋 {my_location}::\n");
-    
-    match s2_hash::check() {
-        Err(ee) => Err(format!("Trace: {ee}⟸ {my_location}")),
-        _ => Ok(()),
-    }
-}
-
-
-/// check int-tests the active system as a whole
+/// run(), runs the system 
 pub fn run() -> Result<(), String> {
 
-    let my_location = "sysops::mod::run"; 
-    lib3::q0_env::log_event("trace", my_location, true);
+    let my_location = "sysops::mod::run";
+    log_event(EvType::Trace, "", my_location, true);
     match lib3::q0_env::get_cmd_code() {
         None => Ok(()),
         Some(cmd_code) => {
             print!("cmd_code: {cmd_code} \n");
             match cmd_code.as_str() {
-                "add-hs"  => {                                      // add-hs:  y2hs1.csv <- x2hs1.csv ∪ x2hs2.csv      + == ∪ (Union)                
-                    print!("\n🎡𐡋 {my_location}::\n");                                                                       
-                    match s2_hash::add_sets() {                                                                              
-                        Err(ee) => Err(format!("{ee}⟸ {my_location}")),                                                      
-                        _ => Ok(()),                                                                                         
-                    }                                                                                                        
-                },                                                                                                           
-                "sub-hs"  => {                                      // sub-hs:  y2hs2.csv <- x2hs1.csv ─ x2hs2.csv      - == ─ (Symetric-Difference)
-                    print!("\n🎡𐡋 {my_location}::\n");                                                                       
-                    match s2_hash::sub_sets() {                                                                              
-                        Err(ee) => Err(format!("{ee}⟸ {my_location}")),                                                      
-                        _ => Ok(()),                                                                                         
-                    }                                                                                                        
-                },                                                                                                           
-                "int-hs"  => {                                      // int-hs:  y2hs2.csv <- x2hs1.csv ∩ x2hs2.csv      % == ∩ (Intersection)
-                    print!("\n🎡𐡋 {my_location}::\n");                                                 
-                    match s2_hash::int_sets() {                                                        
-                        Err(ee) => Err(format!("{ee}⟸ {my_location}")),                                
-                        _ => Ok(()),                                                                   
-                    }                                                                                  
-                },                                                                                     
-                "add-hm"  => {                                      // add-hm:  y2hm1.csv <- x2hm1.csv ∪ x2hm2.csv      + == ∪ (Union) 
-                    print!("\n🎡𐡋 {my_location}::\n");                                                                       
-                    match s2_hash::add_maps() {                                                                              
-                        Err(ee) => Err(format!("{ee}⟸ {my_location}")),                                                      
-                        _ => Ok(()),                                                                                         
-                    }                                                                                                        
-                },                                                                                                           
-                "sub-hm"  => {                                      // sub-hm:  y2hm2.csv <- x2hm1.csv ─ x2hm2.csv      - == ─ (Symetric-Difference)
-                    print!("\n🎡𐡋 {my_location}::\n");                                                                       
-                    match s2_hash::sub_maps() {                                                                              
-                        Err(ee) => Err(format!("{ee}⟸ {my_location}")),                                                      
-                        _ => Ok(()),                                                                                         
-                    }                                                                                                        
-                },                                                                                                           
-                "int-hm"  => {                                      // int-hm:  y3hm2.csv <- x2hm1.csv ∩ x2hm2.csv      % == ∩ (Intersection)
-                    print!("\n🎡𐡋 {my_location}::\n");
+                "add-hs"  => {
+                    match s2_hash::add_sets() {
+                        Err(ee) => Err(format!("{ee}⟸ {my_location}")),
+                        _ => Ok(()),
+                    }
+                },
+                "sub-hs"  => {
+                    match s2_hash::sub_sets() {
+                        Err(ee) => Err(format!("{ee}⟸ {my_location}")),
+                        _ => Ok(()),
+                    }
+                },
+                "int-hs"  => {
+                    match s2_hash::int_sets() {
+                        Err(ee) => Err(format!("{ee}⟸ {my_location}")),
+                        _ => Ok(()),
+                    }
+                },
+                "add-hm"  => {
+                    match s2_hash::add_maps() {
+                        Err(ee) => Err(format!("{ee}⟸ {my_location}")),
+                        _ => Ok(()),
+                    }
+                },
+                "sub-hm"  => {
+                    match s2_hash::sub_maps() {
+                        Err(ee) => Err(format!("{ee}⟸ {my_location}")),
+                        _ => Ok(()),
+                    }
+                },
+                "int-hm"  => {
                     match s2_hash::int_maps() {
                         Err(ee) => Err(format!("{ee}⟸ {my_location}")),
                         _ => Ok(()),
                     }
-                },                                   
-                "clean"  => {                                       // clean:   y3clean.csv <- clean(x3raw.csv)  
-                    print!("\n🎡𐡋 {my_location}::\n");
+                },
+                "clean"  => {
                     match s3_regex::clean_csv() {
                         Err(ee) => Err(format!("{ee}⟸ {my_location}")),
                         _ => Ok(()),
                     }
-                },                                   
-                "g0metr"  => {                                      // g0metr:  y40metrics_fold1/2.csv <- fold(x40raw.csv)
-                    print!("\n🎡𐡋 {my_location}::\n");
+                },
+                "g0fmap"  => {
                     match s4_metrics::gen_fold_metrics_v0() {
                         Err(ee) => Err(format!("{ee}⟸ {my_location}")),
                         _ => Ok(()),
                     }
-                },                                    
-                "g1metr"  => {                                      // g1metr:  y41metrics_fold1/2.csv <- fold(x41raw.csv)
-                    print!("\n🎡𐡋 {my_location}::\n");
+                },
+                "g1fmap"  => {
                     match s4_metrics::gen_fold_metrics_v1() {
                         Err(ee) => Err(format!("{ee}⟸ {my_location}")),
                         _ => Ok(()),
                     }
-                },                                    
-                "p0node"  => {                                      // g1metr:  y41metrics_fold1/2.csv <- fold(x41raw.csv)
-                    print!("\n🎡𐡋 {my_location}::\n");
+                },
+                "g0fnode"  => {
+                    match s4_metrics::gen_node_metrics_v0() {
+                        Err(ee) => Err(format!("{ee}⟸ {my_location}")),
+                        _ => Ok(()),
+                    }
+                },
+                "cp0node"  => {
                     match s4_metrics::check_print_fnode_v0() {
                         Err(ee) => Err(format!("{ee}⟸ {my_location}")),
                         _ => Ok(()),
                     }
-                },                                    
-                "check"  => {                                       // check: Run INT-Tests 
-                    print!("\n🎡𐡋 {my_location}:: \n");
+                },
+                "check"  => {
                     match check() {
                         Err(ee) => Err(format!("{ee}⟸ {my_location}")),
                         _ => Ok(()),
                     }
-                },                                    
-                "help"  => {                                        // help:    Help
-                    print!("\n🎡𐡋 {} \n", lib3::q0_env::_HELP_TABLE );
+                },
+                "help"  => {
                     Ok(())
                 },
                 _ => {
@@ -127,6 +99,20 @@ pub fn run() -> Result<(), String> {
 }
 
 
+/// check runs each module integration-tests
+pub fn check() -> Result<(), String> {
+
+    let my_location = "sysops::check";
+    log_event(EvType::Trace, "", my_location, true);
+
+    match s2_hash::check() {
+        Err(ee) => Err(format!("Trace: {ee}⟸ {my_location}")),
+        _ => match s4_metrics::check() {
+            Err(ee) => Err(format!("Trace: {ee}⟸ {my_location}")),
+            _ => Ok(())
+        }
+    }
+}
 
 
 //λ The Code Pit
@@ -139,19 +125,19 @@ pub fn run() -> Result<(), String> {
 ///λ run() gets the function-code to be executed and runs the corresponding fn
 pub fn run() -> Result<(), String> {
 
-    let my_location = "sysops::run"; 
-    print!("\n🎡𐡋 {my_location} \n");
-    let cmd_code = get_cmd_code();
     
+    log_event(EvType::Trace, "", "sysops::run", true);
+    let cmd_code = get_cmd_code();
+
     let my_location = "s1_exec::run";
     match cmd_code {
-        "2add-hs"  => {                // y2hs.csv <- x2hs1.csv + x2hs2.csv  
+        "2add-hs"  => {                // y2hs.csv <- x2hs1.csv + x2hs2.csv
             match s2_hash::add_hashsets() {
                 Err(ee) => Err(format!("{ee}⟸ {my_location}")),
                 _ => Ok(()),
             }
         }
-        
+
         ...
 
 }
@@ -160,9 +146,9 @@ pub fn run() -> Result<(), String> {
 /// check int-tests the active system as a whole
 pub fn check() -> Result<(), String> {
 
-    let my_location = "sysops::check";
-    match s1_metrics::check() {                                     // checking metrics calculations 
-        Err(ee) => Err(format!("{ee}⟸ {my_location}")),
+    
+    match s1_metrics::check() {                                     // checking metrics calculations
+        Err(ee) => Err(format!("{ee}⟸ {"sysops::check"}")),
         _ => Ok(()),
     }
 }
@@ -171,23 +157,6 @@ pub fn check() -> Result<(), String> {
         Err(ee) => Err(format!("{ee}⟸ {my_location}")),
         _ => Ok(()),
     }
-•═══════════··══════════════════·═══════════════════··══════════════════·═══════════════════··═══════════•
-// •════════··══════════════════·═══════════════════··══════════════════·═══════════════════··═══════════•
-///λ run() is the system's exec fn for sysopss module; 
-pub fn run() -> Result<(), String> {
-
-    let my_location = "s1_exec::run";
-    let lex1 = Lex::new();
-    print!("lex1: \n{lex1}");
-    
-    match map_iter_2() {
-        Err(ee) => Err(format!("{ee}⟸ {my_location}")),
-        _ => Ok(()),
-    }
-}
-
-
-•═══════════··══════════════════·═══════════════════··══════════════════·═══════════════════··═══════════•
 •═══════════··══════════════════·═══════════════════··══════════════════·═══════════════════··═══════════•
 λ Crates § Modules
 

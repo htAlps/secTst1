@@ -1400,7 +1400,7 @@ pub fn fmap_reduce(hm: HashMap<String, (i32, i32)>) -> HashMap<String, (i32, i32
 ///λ check is an integration tester (int-tester) to check functionality in the development vector (dev-vector)
 pub fn check() -> Result<(), String> {
 
-    let my_location = "q4_fold::check";
+    let my_location = "q4_map::check";
     print!("\n🎡𐡋 {my_location} \n");
     match fs::read_to_string("/usr/local/sys/sys3rs/data/x32_in_count_duplicates.csv") {
         Err(ee)       => Err(format!("read_error[{ee}]@{my_location}")),

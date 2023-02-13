@@ -2,10 +2,11 @@
 // ✨λ s2_operations.rs  ι✧22․05․20✦05․15․31․ 🌎η ✧23․01․10․✧22․11․25․✧22․10․11․✦06․✧22․07․05․✧22․05․22․✧22․05․21․✧22․05․20․
 // Operations on HashSets and HashMaps like: `+` `-` `*` `/` 
 #![allow(dead_code)]
-// use std::fs;
-// use lib3::q4_fold;
-// use lib3::q3_regex;
+use lib3::q0_env::{EvType, log_event};
 use lib3::q3_regex::Clean;
+// use std::fs;
+// use lib3::q4_map;
+// use lib3::q3_regex;
 
 const C_LL: &str = "\n•═══════════··══════════════════·═══════════════════··═══════════•\n";
 
@@ -29,8 +30,8 @@ mod test_regex {
 
 ///λ clean_csv(): y3clean.csv <- clean(x3raw.csv)
 pub fn clean_csv() -> Result<(), String> {
-    let my_location = "q3_regex::from_file";
-    lib3::q0_env::log_event("trace", my_location, true);
+    let my_location = "s3_regex::clean_csv";
+    log_event(EvType::Trace, "", my_location, true);
 
     let csv = String::new();
     match csv.from_file("x3raw.csv") {
@@ -44,6 +45,11 @@ pub fn clean_csv() -> Result<(), String> {
     }
 }
 
+
+/// check int-tests the active system
+pub fn check() -> Result<(), String> {
+    Ok(())
+}
 
 
 //λ The Code Pit

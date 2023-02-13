@@ -4,8 +4,10 @@
 #![allow(dead_code)]
 use std::fs;
 use lazy_static::lazy_static;
-use lib3::q4_fold::{Fold, FMap, FHMap};
-use lib3::q5_node::{FNode};
+use lib3::q0_env::{EvType, log_event};
+use lib3::q1_lex;
+use lib3::q4_map::{Fold, FMap, FHMap};
+use lib3::q5_node::{FNode, FSet};
 // use lib3::q3_regex::Clean;
 
 // •════════··══════════════════·═══════════════════··══════════════════·═══════════════════··═══════════•
@@ -29,14 +31,14 @@ const C_LL: &str = "\n•═══════════··══════
 ///  3. writes the result to another csv file 
 pub fn gen_fold_metrics_v0() -> Result<(), String> {
 
-    let my_location = "s4_metrics::gen_fold_metrics";
-    lib3::q0_env::log_event("trace", my_location, true);
+    let my_location = "s4_metrics::gen_fold_metrics_v0";
+    log_event(EvType::Trace, "", my_location, true);
 
     match fs::read_to_string("x40raw.csv") {
         Err(ee) => Err(format!("read_error[{ee}]@{my_location}")),
 
         Ok(in_string) => {
-            let fmap1: lib3::q4_fold::FMap = FMap::new().fold1(in_string);
+            let fmap1: lib3::q4_map::FMap = FMap::new().fold1(in_string);
             match fmap1.to_file("y40metrics_fold1.csv") {
                 Err(ee) => Err(format!("{ee}⟸ {my_location}")),
                 _ => {
@@ -67,13 +69,13 @@ pub fn gen_fold_metrics_v0() -> Result<(), String> {
 pub fn gen_fold_metrics_v1() -> Result<(), String> {
 
     let my_location = "s4_metrics::gen_fold_metrics_v1";
-    lib3::q0_env::log_event("trace", my_location, true);
+    log_event(EvType::Trace, "", my_location, true);
     
     match fs::read_to_string("x41raw.csv") {
         Err(ee) => Err(format!("read_error[{ee}]@{my_location}")),
 
         Ok(in_string) => {
-            let fhmap1: lib3::q4_fold::FHMap = FHMap::new().fold1(in_string);
+            let fhmap1: lib3::q4_map::FHMap = FHMap::new().fold1(in_string);
             match fhmap1.to_file("y41metrics_fold1.csv") {
                 Err(ee) => Err(format!("{ee}⟸ {my_location}")),
                 _ => {
@@ -88,47 +90,98 @@ pub fn gen_fold_metrics_v1() -> Result<(), String> {
     }
 }
 
-///λ print_fnode_v0 
+
+///λ gen_node_metrics_v0(): y50metrics_node1/2.csv <- fold_node(x50raw.csv) 
+pub fn gen_node_metrics_v0() -> Result<(), String> {
+
+    let my_location = "s4_metrics::gen_node_metrics_v0";
+    log_event(EvType::Trace, "", my_location, true);
+
+    match fs::read_to_string("x50raw.csv") {
+        Err(ee) => Err(format!("read_error[{ee}]@{my_location}")),
+        Ok(in_string) => {
+            let fnode1: lib3::q5_node::FNode = FNode::new().fold(in_string);
+            Ok(())
+        },
+    }
+}
+
+
+
+///λ check_print_fnode_v0() -> Result<(), String> {
 pub fn check_print_fnode_v0() -> Result<(), String> {
 
-    let my_location = "s4_metrics::print_fnode_v0";
-    lib3::q0_env::log_event("trace", my_location, true);
+    
+    log_event(EvType::Trace, "", "s4_metrics::check_print_fnode_v0", true);
 
-    let node = FNode::new();                    // test new node 
-    node.insert_kv(&KEY_STG_1, &VAL_STG_1);     // insert a (k, v) (stg == string)
+    let mut set = FSet::new();                      // check - FSet
+    set.insert(&LX.val1.v());
+    set.insert(&LX.val2.v());
+    set.insert(&LX.val3.v());
 
+    print!("\n🎡𐡋 set after inserted 3 values \n{}\n", set);
+    
+    let mut node = FNode::new();                // check - FNode 
+    node.insert(&LX.key1.v(), &LX.val1.v());   // insert a (k, v) (stg == string)
+    node.insert(&LX.key1.v(), &LX.val2.v());
+
+    print!("\n🎡𐡋 node after inserted 2 more key, value pairs with 'key 1' as key \n{}\n", node);
+    
+    node.insert(&LX.key2.v(), &LX.val1.v());
+    node.insert(&LX.key2.v(), &LX.val3.v());
+
+    print!("\n🎡𐡋 node after inserted 2 more key, value pairs with 'key 2' as key \n{}\n", node);
+    
+    node.insert(&LX.key3.v(), &LX.val2.v());
+    node.insert(&LX.key3.v(), &LX.val3.v());
+
+    print!("\n🎡𐡋 node after inserted 2 more key, value pairs with 'key 3' as key \n{}\n", node);
+    
     Ok(())
 }
 
 
-/// check int-tests the active system as a whole
+/// check int-tests the active system
 pub fn check() -> Result<(), String> {
-    Ok(())
+    let my_location = "s4_metrics::check";
+    match lib3::q5_node::check() {
+        Err(ee) => Err(format!("Trace: {ee}⟸ {my_location}")),
+        _ => Ok(()),
+    }
 }
+
 
 // •════════··══════════════════·═══════════════════··══════════════════·═══════════════════··═══════════•
 //ξ Bulky Support Data that I want out of the way because it obfuscatess readability 
 
 lazy_static! {                                                          // cheating to limit verbosity
-    static ref NON_EXIST_KEY: String = "non-existing-key".to_string();
-    static ref NON_EXIST_VAL: String = "non-existing-val".to_string();
-
-    static ref KEY_STG_1: String = "key-111".to_string();
-    static ref KEY_STG_2: String = "key-222".to_string();
-    static ref KEY_STG_3: String = "key-333".to_string();
-    
-    static ref VAL_STG_1: String = "val-111".to_string();
-    static ref VAL_STG_2: String = "val-222".to_string();
-    static ref VAL_STG_3: String = "val-333".to_string();
-
-    static ref NL: String = "\n".to_string();
+    static ref LX: q1_lex::Lex = q1_lex::Lex::new();
 }
 
 
 //λ The Code Pit
 /*
 •═══════════··══════════════════·═══════════════════··══════════════════·═══════════════════··═══════════•
-•═══════════··══════════════════·═══════════════════··══════════════════·═══════════════════··═══════════•
+    node.insert("key-111".to_string(), "val-111".to_string());       // insert a (k, v) (stg == string)
+    node.insert("key-111".to_string(), "val-222".to_string());
+    node.insert("key-111".to_string(), "val-333".to_string());
+                                         
+    node.insert("key-222".to_string(), "val-111".to_string());
+    node.insert("key-222".to_string(), "val-222".to_string());
+                                         
+    node.insert("key-333".to_string(), "val-111".to_string());
+    node.insert("key-333".to_string(), "val-222".to_string());
+
+    node.insert(&LX.key1.v(), &LX.val1.v());       // insert a (k, v) (stg == string)
+    node.insert(&LX.key1.v(), &LX.val2.v());
+    node.insert(&LX.key1.v(), &LX.val3.v());
+
+    node.insert(&LX.key2.v(), &LX.val1.v());
+    node.insert(&LX.key2.v(), &LX.val2.v());
+
+    node.insert(&LX.key3.v(), &LX.val1.v());
+    node.insert(&LX.key3.v(), &LX.val2.v());
+
 •═══════════··══════════════════·═══════════════════··══════════════════·═══════════════════··═══════════•
             let csv1 = format!("{}\n", fmap_to_csv(true, "col1, col2, cnt1, cnt2", &fmap1));
 format!("{}\n", fmap_to_table(&fmap1));

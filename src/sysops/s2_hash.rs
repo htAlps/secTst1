@@ -2,6 +2,7 @@
 // ✨λ s2_operations.rs  ι✧22․05․20✦05․15․31․ 🌎η ✧23․01․17․✧23․01․10․✧22․11․25․✧22․10․11․✦06․✧22․07․05․✧22․05․22․✧22․05․21․✧22․05․20․
 // Operations on HashSets and HashMaps like: `+` `-` `*` `/` 
 #![allow(dead_code)]
+use lib3::q0_env::{EvType, log_event};
 use lib3::q2_hash::*;
 use std::collections::HashSet;
 // use std::fs;
@@ -15,35 +16,6 @@ mod test_regex {
     // use super::*;
 
 }
-
-/// check runs each module integration tests 
-pub fn check() -> Result<(), String> {
-
-    let my_location = "sysops::check"; 
-    print!("\n🎡𐡋 {my_location}::\n");
-    
-    let set1 = HashSet::from(["22", "44", "33"]);
-    let set2 = HashSet::from(["77", "33", "55"]);
-    print!("set1: {:?}\n", set1);
-    print!("set2: {:?}\n", set2);
-
-    let set1 = HSet::new().from_string("22\n44\n33".to_string());   // Check Add `+` (union)
-    let set2 = HSet::new().from_string("77\n33\n55".to_string());
-    let set3: HSet = set1 + set2;
-    print!("set1 + set2: \n{}\n", set3.to_string());
-
-    let set1 = HSet::new().from_string("22\n44\n33".to_string());   // Shadow-Check Sub `-` (difference)
-    let set2 = HSet::new().from_string("77\n33\n55".to_string());
-    let set3: HSet = set1 - set2;
-    print!("set1 - set2: \n{}\n", set3.to_string());
-
-    let set1 = HSet::new().from_string("22\n44\n33".to_string());   // Shadow-Check Rem `%` (intersection)
-    let set2 = HSet::new().from_string("77\n33\n55".to_string());
-    let set3: HSet = set1 % set2;
-    print!("set1 % set2: \n{}\n", set3.to_string());
-    Ok(())
-}
-
 
 // •════════··══════════════════·═══════════════════··══════════════════·═══════════════════··═══════════•
 // Traits, Constants, Types § Enums
@@ -83,12 +55,36 @@ pub fn int_maps()  -> Result<(), String> {
 // •════════··══════════════════·═══════════════════··══════════════════·═══════════════════··═══════════•
 ///λ run() is the system's exec fn for sysops::s2_hash sub-module; 
 pub fn run() -> Result<(), String> {
-
-    let my_location = "s2_hash::run";
-    print!("\n🎡𐡋 {my_location} \n");
+    log_event(EvType::Trace, "", "s2_hash::run", true);
     Ok(())
 }
 
+
+/// check runs each module integration tests 
+pub fn check() -> Result<(), String> {
+    log_event(EvType::Trace, "", "s2_hash::check", true);
+    
+    let set1 = HashSet::from(["22", "44", "33"]);
+    let set2 = HashSet::from(["77", "33", "55"]);
+    print!("set1: {:?}\n", set1);
+    print!("set2: {:?}\n", set2);
+
+    let set1 = HSet::new().from_string("22\n44\n33".to_string());   // Check Add `+` (union)
+    let set2 = HSet::new().from_string("77\n33\n55".to_string());
+    let set3: HSet = set1 + set2;
+    print!("set1 + set2: \n{}\n", set3.to_string());
+
+    let set1 = HSet::new().from_string("22\n44\n33".to_string());   // Shadow-Check Sub `-` (difference)
+    let set2 = HSet::new().from_string("77\n33\n55".to_string());
+    let set3: HSet = set1 - set2;
+    print!("set1 - set2: \n{}\n", set3.to_string());
+
+    let set1 = HSet::new().from_string("22\n44\n33".to_string());   // Shadow-Check Rem `%` (intersection)
+    let set2 = HSet::new().from_string("77\n33\n55".to_string());
+    let set3: HSet = set1 % set2;
+    print!("set1 % set2: \n{}\n", set3.to_string());
+    Ok(())
+}
 
 
 //λ The Code Pit
@@ -99,6 +95,7 @@ pub fn run() -> Result<(), String> {
 pub fn run() -> Result<(), String> {
 
     let my_location = "s2_hash::run";
+    log_event(EvType::Trace, "", my_location, true);
     print!("\n🎡𐡋 {my_location} \n");
     match fs::read_to_string("/usr/local/sys/sys3rs/data/x41_input_data.csv") {
         Err(ee) => Err(format!("read_error[{ee}]@{my_location}")),
@@ -176,8 +173,6 @@ format!("{}\n", fmap_to_table(&fmap1));
         Err(ee) => Err(format!("{ee}⟸ {my_location}")),
         _       => Ok(()),
     }
-•═══════════··══════════════════·═══════════════════··══════════════════·═══════════════════··═══════════•
-    print!("{C_LL}🎡𐡋 {my_location} \n", );
 •═══════════··══════════════════·═══════════════════··══════════════════·═══════════════════··═══════════•
 $ curl --proto '=https' --tlsv1.3 https://sh.rustup.rs -sSf | sh
 •═══════════··══════════════════·═══════════════════··══════════════════·═══════════════════··═══════════•
